@@ -17,3 +17,4 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "rama-net-kotlin"
+
