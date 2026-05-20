@@ -97,16 +97,19 @@ jobs:
           # off the init step on warm cache.
           dependency-caching: true
 
-      # Manual build: only java-kotlin gates this. `Initialize CodeQL`
-      # above installs the LD_PRELOAD build tracer into the environment;
-      # the Gradle invocation below runs the android (and JS/WASM)
-      # `kotlinc` compilers as fresh out-of-process execs that the
-      # tracer intercepts, writing per-source `*.kt.trap.gz` extractor
-      # output under ${CODEQL_EXTRACTOR_JAVA_TRAP_DIR}.
+      # Manual CodeQL extraction: only java-kotlin gates this. `Initialize
+      # CodeQL` above installs the LD_PRELOAD build tracer into the
+      # environment; the Gradle invocation below first configures the
+      # project-local Android SDK, then runs the android (and JS/WASM)
+      # `kotlinc` compilers as fresh out-of-process execs that the tracer
+      # intercepts, writing per-source `*.kt.trap.gz` extractor output under
+      # ${CODEQL_EXTRACTOR_JAVA_TRAP_DIR}. This is not the repo's full build
+      # contract; `build` carries the full target surface in build.gradle.kts.
       - name: Run manual build steps
         if: matrix.build-mode == 'manual'
         run: |
           ./gradlew \
+            setupAndroidSdk \
             compileAndroidMain \
             compileKotlinJs \
             compileKotlinWasmJs \
