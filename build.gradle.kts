@@ -208,10 +208,18 @@ kotlin {
         binaries.framework { baseName = "RamaNet"; xcf.add(this) }
     }
     iosSimulatorArm64 {
-        binaries.framework { baseName = "RamaNet"; xcf.add(this) }
+        binaries.framework {
+            baseName = "RamaNet"
+            isStatic = true
+            xcf.add(this)
+        }
     }
     iosX64 {
-        binaries.framework { baseName = "RamaNet"; xcf.add(this) }
+        binaries.framework {
+            baseName = "RamaNet"
+            isStatic = true
+            xcf.add(this)
+        }
     }
 
     tvosArm64 {
