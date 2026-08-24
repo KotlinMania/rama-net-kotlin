@@ -736,6 +736,54 @@ tasks.register("hostTests") {
     )
 }
 
+// Patch generated SPM Package.swift to include minimum macOS platform for Swift Concurrency
+// and patch unqualified String(reflecting:) calls in generated Swift sources
+tasks.matching { it.name.contains("GenerateSPMPackage") }.configureEach {
+    doLast {
+        val spmDir = layout.buildDirectory.dir("SPMPackage").orNull?.asFile
+        if (spmDir != null && spmDir.exists()) {
+            spmDir.walkTopDown().forEach { file ->
+                if (file.name == "Package.swift") {
+                    val text = file.readText()
+                    if (!text.contains("platforms:")) {
+                        file.writeText(
+                            text.replaceFirst(
+                                Regex("(name:\\s*\"[^\"]*\",)"),
+                                "$1\n    platforms: [.macOS(.v14)],",
+                            ),
+                        )
+                    }
+                } else if (file.extension == "swift") {
+                    var text = file.readText()
+                    var modified = false
+                    if (text.contains("String(reflecting:")) {
+                        text = text.replace("String(reflecting:", "Swift.String(reflecting:")
+                        modified = true
+                    }
+                    if (text.contains("case let res: { let _ref = res;")) {
+                        text = text.replace("case let res: { let _ref = res;", "case let res?: { let _ref = res;")
+                        modified = true
+                    }
+                    if (text.contains("case nil: .none; case let res:")) {
+                        text = text.replace("case nil: .none; case let res:", "case nil: nil; case let res?:")
+                        modified = true
+                    }
+                    if (text.contains("Protocol")) {
+                        text = text.replace("open class Protocol:", "open class NetProtocol:")
+                        text = text.replace("public typealias Protocol =", "public typealias NetProtocol =")
+                        text = text.replace(Regex("(\\bramanet)\\.Protocol\\b"), "$1.NetProtocol")
+                        text = text.replace(Regex("(\\bramanet)\\.`Protocol`\\b"), "$1.NetProtocol")
+                        modified = true
+                    }
+                    if (modified) {
+                        file.writeText(text)
+                    }
+                }
+            }
+        }
+    }
+}
+
 // Swift Export smoke test — produces the SPM package via embedSwiftExportForXcode
 // (spawned with the Xcode-style env it requires) and runs `swift test` against it,
 // so Swift Export breakage surfaces locally, not only in the swift.yml CI job.
@@ -777,23 +825,6 @@ tasks.register("swiftExportSmokeTest") {
                     ),
                 )
             }.assertNormalExitValue()
-
-        val generatedPackageSwift =
-            layout.buildDirectory
-                .file("SPMPackage/macosArm64/Debug/Package.swift")
-                .get()
-                .asFile
-        if (generatedPackageSwift.exists()) {
-            val text = generatedPackageSwift.readText()
-            if (!text.contains("platforms:")) {
-                generatedPackageSwift.writeText(
-                    text.replaceFirst(
-                        Regex("(name:\\s*\"[^\"]*\",)"),
-                        "\$1\n    platforms: [.macOS(.v14)],",
-                    ),
-                )
-            }
-        }
 
         execOperations
             .exec {
