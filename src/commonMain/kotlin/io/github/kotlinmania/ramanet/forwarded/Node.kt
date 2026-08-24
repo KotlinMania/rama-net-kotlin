@@ -108,7 +108,6 @@ data class NodeId(
     val name: NodeName,
     val port: NodePort? = null,
 ) : Comparable<NodeId> {
-
     fun ip(): String? =
         when (name) {
             is NodeName.Ip -> name.ip
@@ -161,8 +160,9 @@ data class NodeId(
         fun unknown(): NodeId = NodeId(NodeName.Unknown, null)
 
         fun fromIp(ip: String, port: UShort? = null): NodeId {
-            val cleanIp = ParseUtils.tryToParseStrToIp(ip)
-                ?: throw IllegalArgumentException("invalid IP address: $ip")
+            val cleanIp =
+                ParseUtils.tryToParseStrToIp(ip)
+                    ?: throw IllegalArgumentException("invalid IP address: $ip")
             return NodeId(NodeName.Ip(cleanIp), port?.let { NodePort.Num(it) })
         }
 
@@ -204,11 +204,12 @@ data class NodeId(
 
             val (hostPart, portPart) = splitNodePortLossy(s)
             val ip = ParseUtils.tryToParseStrToIp(hostPart)
-            val name = if (ip != null) {
-                NodeName.Ip(ip)
-            } else {
-                NodeName.Obf(ObfNode.fromStrLossy(hostPart))
-            }
+            val name =
+                if (ip != null) {
+                    NodeName.Ip(ip)
+                } else {
+                    NodeName.Obf(ObfNode.fromStrLossy(hostPart))
+                }
 
             return if (name is NodeName.Ip && ParseUtils.isValidIpv6(name.ip) && portPart != null && !hostPart.startsWith('[')) {
                 NodeId(NodeName.Obf(ObfNode.fromStrLossy(sOriginal)), null)
@@ -229,12 +230,13 @@ data class NodeId(
 
             val (hostPart, portPart) = splitNodePort(s)
             val ip = ParseUtils.tryToParseStrToIp(hostPart)
-            val name = if (ip != null) {
-                NodeName.Ip(ip)
-            } else {
-                val obf = ObfNode.tryFromStr(hostPart).getOrThrow()
-                NodeName.Obf(obf)
-            }
+            val name =
+                if (ip != null) {
+                    NodeName.Ip(ip)
+                } else {
+                    val obf = ObfNode.tryFromStr(hostPart).getOrThrow()
+                    NodeName.Obf(obf)
+                }
 
             if (name is NodeName.Ip && ParseUtils.isValidIpv6(name.ip) && portPart != null && !hostPart.startsWith('[')) {
                 throw IllegalArgumentException("missing brackets for node IPv6 address with port")

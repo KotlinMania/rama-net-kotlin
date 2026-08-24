@@ -48,16 +48,17 @@ private fun isValidObfPort(bytes: ByteArray): Boolean =
     isValidObfNode(bytes) && bytes[0] == '_'.code.toByte()
 
 private fun fixObfPort(bytes: ByteArray): ByteArray {
-    val prefixed = if (bytes.isEmpty()) {
-        byteArrayOf('_'.code.toByte())
-    } else if (bytes[0] != '_'.code.toByte()) {
-        val next = ByteArray(bytes.size + 1)
-        next[0] = '_'.code.toByte()
-        bytes.copyInto(next, 1)
-        next
-    } else {
-        bytes
-    }
+    val prefixed =
+        if (bytes.isEmpty()) {
+            byteArrayOf('_'.code.toByte())
+        } else if (bytes[0] != '_'.code.toByte()) {
+            val next = ByteArray(bytes.size + 1)
+            next[0] = '_'.code.toByte()
+            bytes.copyInto(next, 1)
+            next
+        } else {
+            bytes
+        }
     val len = if (prefixed.size > OBF_MAX_LEN) OBF_MAX_LEN else prefixed.size
     val result = ByteArray(len)
     for (i in 0 until len) {
@@ -90,10 +91,11 @@ data class ObfNode(
 
         fun tryFromStr(s: String): Result<ObfNode> = runCatching { ObfNode(s) }
 
-        fun tryFromBytes(bytes: ByteArray): Result<ObfNode> = runCatching {
-            require(isValidObfNode(bytes)) { "invalid ObfNode bytes" }
-            ObfNode(bytes.decodeToString())
-        }
+        fun tryFromBytes(bytes: ByteArray): Result<ObfNode> =
+            runCatching {
+                require(isValidObfNode(bytes)) { "invalid ObfNode bytes" }
+                ObfNode(bytes.decodeToString())
+            }
 
         fun fromBytesLossy(bytes: ByteArray): ObfNode {
             val fixed = fixObfNode(bytes)
@@ -129,10 +131,11 @@ data class ObfPort(
 
         fun tryFromStr(s: String): Result<ObfPort> = runCatching { ObfPort(s) }
 
-        fun tryFromBytes(bytes: ByteArray): Result<ObfPort> = runCatching {
-            require(isValidObfPort(bytes)) { "invalid ObfPort bytes" }
-            ObfPort(bytes.decodeToString())
-        }
+        fun tryFromBytes(bytes: ByteArray): Result<ObfPort> =
+            runCatching {
+                require(isValidObfPort(bytes)) { "invalid ObfPort bytes" }
+                ObfPort(bytes.decodeToString())
+            }
 
         fun fromBytesLossy(bytes: ByteArray): ObfPort {
             val fixed = fixObfPort(bytes)

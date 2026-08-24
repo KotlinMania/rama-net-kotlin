@@ -1,3 +1,4 @@
+// port-lint: tests mode.rs
 package io.github.kotlinmania.ramanet
 
 import kotlin.test.Test
