@@ -5,9 +5,9 @@ Based on AST analysis, here are the concrete next steps.
 ## Summary
 
 - **Files Present:** 21/104 (20.2%)
-- **Function parity:** 93/913 matched (target 267) — 10.2%
-- **Class/type parity:** 22/228 matched (target 67) — 9.6%
-- **Combined symbol parity:** 115/1141 matched (target 334) — 10.1%
+- **Function parity:** 93/913 matched (target 269) — 10.2%
+- **Class/type parity:** 22/228 matched (target 68) — 9.6%
+- **Combined symbol parity:** 115/1141 matched (target 337) — 10.1%
 - **Average inline-code cosine:** 0.19 (function body across 20 matched files)
 - **Average documentation cosine:** 0.48 (doc text across 20 matched files)
 - **Cheat-zeroed Files:** 1
@@ -22,7 +22,7 @@ No incomplete high-dependency files detected.
 Critical missing files (>10 dependencies):
 
 1. **match_replace.fmt** (11 deps)
-   - Path: `src/http/uri/match_replace/fmt.rs`
+   - Path: `http/uri/match_replace/fmt.rs`
    - Essential for 11 other files
 
 ## Detailed Work Items
@@ -31,7 +31,7 @@ Every matched file is listed below with function and type symbol parity.
 
 ### 1. address.domain
 
-- **Target:** `address.Domain [PROVENANCE-FALLBACK]`
+- **Target:** `address.Domain`
 - **Similarity:** 0.09
 - **Dependents:** 3
 - **Priority Score:** 3385709.0
@@ -40,13 +40,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/7 matched (target 2)
 - **Missing types:** `Err`, `Error`, `AsDomainRef`, `IntoDomain`, `AsDomainRefPrivate`, `IntoDomainImpl`
 - **Tests:** 0/13 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `address/domain.rs` vs expected `address/domain.rs`
-- **Proposed provenance header:** `// port-lint: source address/domain.rs` (current: `// port-lint: source address/domain.rs`)
-- **Lint issues:** 1
 
 ### 2. address.host_with_port
 
-- **Target:** `address.HostWithPort [PROVENANCE-FALLBACK]`
+- **Target:** `address.HostWithPort`
 - **Similarity:** 0.02
 - **Dependents:** 3
 - **Priority Score:** 3222509.8
@@ -55,13 +52,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/3 matched (target 2)
 - **Missing types:** `Err`, `Error`
 - **Tests:** 0/4 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `address/host_with_port.rs` vs expected `address/host_with_port.rs`
-- **Proposed provenance header:** `// port-lint: source address/host_with_port.rs` (current: `// port-lint: source address/host_with_port.rs`)
-- **Lint issues:** 1
 
 ### 3. address.host_with_opt_port
 
-- **Target:** `address.HostWithOptPort [PROVENANCE-FALLBACK]`
+- **Target:** `address.HostWithOptPort`
 - **Similarity:** 0.06
 - **Dependents:** 2
 - **Priority Score:** 2273409.5
@@ -70,13 +64,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/3 matched (target 2)
 - **Missing types:** `Err`, `Error`
 - **Tests:** 0/4 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `address/host_with_opt_port.rs` vs expected `address/host_with_opt_port.rs`
-- **Proposed provenance header:** `// port-lint: source address/host_with_opt_port.rs` (current: `// port-lint: source address/host_with_opt_port.rs`)
-- **Lint issues:** 1
 
 ### 4. address.host
 
-- **Target:** `address.Host [PROVENANCE-FALLBACK]`
+- **Target:** `address.Host`
 - **Similarity:** 0.03
 - **Dependents:** 2
 - **Priority Score:** 2242909.8
@@ -85,13 +76,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/4 matched
 - **Missing types:** `Err`, `Error`, `Is`
 - **Tests:** 0/8 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `address/host.rs` vs expected `address/host.rs`
-- **Proposed provenance header:** `// port-lint: source address/host.rs` (current: `// port-lint: source address/host.rs`)
-- **Lint issues:** 1
 
 ### 5. address.socket_address
 
-- **Target:** `address.SocketAddress [PROVENANCE-FALLBACK]`
+- **Target:** `address.SocketAddress`
 - **Similarity:** 0.12
 - **Dependents:** 2
 - **Priority Score:** 2142208.8
@@ -100,13 +88,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/3 matched (target 2)
 - **Missing types:** `Err`, `Error`
 - **Tests:** 0/4 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `address/socket_address.rs` vs expected `address/socket_address.rs`
-- **Proposed provenance header:** `// port-lint: source address/socket_address.rs` (current: `// port-lint: source address/socket_address.rs`)
-- **Lint issues:** 1
 
 ### 6. address.domain_address
 
-- **Target:** `address.DomainAddress [PROVENANCE-FALLBACK]`
+- **Target:** `address.DomainAddress`
 - **Similarity:** 0.27
 - **Dependents:** 1
 - **Priority Score:** 1112007.4
@@ -115,13 +100,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/3 matched (target 2)
 - **Missing types:** `Err`, `Error`
 - **Tests:** 0/4 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `address/domain_address.rs` vs expected `address/domain_address.rs`
-- **Proposed provenance header:** `// port-lint: source address/domain_address.rs` (current: `// port-lint: source address/domain_address.rs`)
-- **Lint issues:** 1
 
 ### 7. forwarded.version
 
-- **Target:** `forwarded.ForwardedVersion [PROVENANCE-FALLBACK]`
+- **Target:** `forwarded.ForwardedVersion`
 - **Similarity:** 0.00
 - **Dependents:** 1
 - **Priority Score:** 1050610.0
@@ -129,13 +111,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `as_http`, `try_from`, `fmt`
 - **Types:** 1/3 matched (target 1)
 - **Missing types:** `VersionKind`, `Error`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `forwarded/version.rs` vs expected `forwarded/version.rs`
-- **Proposed provenance header:** `// port-lint: source forwarded/version.rs` (current: `// port-lint: source forwarded/version.rs`)
-- **Lint issues:** 1
 
 ### 8. address.authority
 
-- **Target:** `address.Authority [PROVENANCE-FALLBACK]`
+- **Target:** `address.Authority`
 - **Similarity:** 0.07
 - **Dependents:** 0
 - **Priority Score:** 273409.3
@@ -144,13 +123,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/3 matched (target 2)
 - **Missing types:** `Err`, `Error`
 - **Tests:** 0/4 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `address/authority.rs` vs expected `address/authority.rs`
-- **Proposed provenance header:** `// port-lint: source address/authority.rs` (current: `// port-lint: source address/authority.rs`)
-- **Lint issues:** 1
 
 ### 9. address.domain_trie
 
-- **Target:** `address.DomainTrie [PROVENANCE-FALLBACK]`
+- **Target:** `address.DomainTrie`
 - **Similarity:** 0.03
 - **Dependents:** 0
 - **Priority Score:** 212509.7
@@ -159,13 +135,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/2 matched (target 3)
 - **Missing types:** _none_
 - **Tests:** 0/5 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `address/domain_trie.rs` vs expected `address/domain_trie.rs`
-- **Proposed provenance header:** `// port-lint: source address/domain_trie.rs` (current: `// port-lint: source address/domain_trie.rs`)
-- **Lint issues:** 1
 
 ### 10. address.proxy
 
-- **Target:** `address.Proxy [PROVENANCE-FALLBACK]`
+- **Target:** `address.Proxy`
 - **Similarity:** 0.03
 - **Dependents:** 0
 - **Priority Score:** 172009.7
@@ -174,13 +147,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/3 matched (target 2)
 - **Missing types:** `Error`, `Err`
 - **Tests:** 0/12 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `address/proxy.rs` vs expected `address/proxy.rs`
-- **Proposed provenance header:** `// port-lint: source address/proxy.rs` (current: `// port-lint: source address/proxy.rs`)
-- **Lint issues:** 1
 
 ### 11. forwarded.node
 
-- **Target:** `forwarded.Node [PROVENANCE-FALLBACK]`
+- **Target:** `forwarded.Node`
 - **Similarity:** 0.14
 - **Dependents:** 0
 - **Priority Score:** 132508.6
@@ -189,13 +159,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 3/5 matched (target 8)
 - **Missing types:** `Err`, `Error`
 - **Tests:** 0/3 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `forwarded/node.rs` vs expected `forwarded/node.rs`
-- **Proposed provenance header:** `// port-lint: source forwarded/node.rs` (current: `// port-lint: source forwarded/node.rs`)
-- **Lint issues:** 1
 
 ### 12. proto
 
-- **Target:** `ramanet.Proto [PROVENANCE-FALLBACK]`
+- **Target:** `ramanet.Proto`
 - **Similarity:** 0.11
 - **Dependents:** 0
 - **Priority Score:** 132408.9
@@ -204,15 +171,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/4 matched (target 11)
 - **Missing types:** `ProtocolKind`, `Error`, `Err`
 - **Tests:** 3/4 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `proto.rs` vs expected `proto.rs`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:proto.rs` vs expected `proto.rs`
-- **Proposed provenance header:** `// port-lint: source proto.rs` (current: `// port-lint: source proto.rs`)
-- **Proposed provenance header:** `// port-lint: tests proto.rs` (current: `// port-lint: tests proto.rs`)
-- **Lint issues:** 2
 
 ### 13. forwarded.proto
 
-- **Target:** `forwarded.ForwardedProtocol [PROVENANCE-FALLBACK]`
+- **Target:** `forwarded.ForwardedProtocol`
 - **Similarity:** 0.05
 - **Dependents:** 0
 - **Priority Score:** 111609.5
@@ -221,13 +183,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/4 matched (target 1)
 - **Missing types:** `ProtocolKind`, `Error`, `Err`
 - **Tests:** 0/2 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `forwarded/proto.rs` vs expected `forwarded/proto.rs`
-- **Proposed provenance header:** `// port-lint: source forwarded/proto.rs` (current: `// port-lint: source forwarded/proto.rs`)
-- **Lint issues:** 1
 
 ### 14. forwarded.obfuscated
 
-- **Target:** `forwarded.Obfuscated [PROVENANCE-FALLBACK]`
+- **Target:** `forwarded.Obfuscated`
 - **Similarity:** 0.12
 - **Dependents:** 0
 - **Priority Score:** 61008.8
@@ -236,13 +195,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/0 matched (target 2)
 - **Missing types:** _none_
 - **Tests:** 0/6 matched
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `forwarded/obfuscated.rs` vs expected `forwarded/obfuscated.rs`
-- **Proposed provenance header:** `// port-lint: source forwarded/obfuscated.rs` (current: `// port-lint: source forwarded/obfuscated.rs`)
-- **Lint issues:** 1
 
 ### 15. asn
 
-- **Target:** `ramanet.Asn [PROVENANCE-FALLBACK]`
+- **Target:** `ramanet.Asn`
 - **Similarity:** 0.19
 - **Dependents:** 0
 - **Priority Score:** 51208.1
@@ -250,29 +206,21 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `as_u32`, `try_from`, `fmt`
 - **Types:** 1/3 matched (target 4)
 - **Missing types:** `AsnData`, `Error`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `asn.rs` vs expected `asn.rs`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:asn.rs` vs expected `asn.rs`
-- **Proposed provenance header:** `// port-lint: source asn.rs` (current: `// port-lint: source asn.rs`)
-- **Proposed provenance header:** `// port-lint: tests asn.rs` (current: `// port-lint: tests asn.rs`)
-- **Lint issues:** 2
 
 ### 16. transport
 
-- **Target:** `ramanet.Transport [PROVENANCE-FALLBACK]`
+- **Target:** `ramanet.Transport`
 - **Similarity:** 0.25
 - **Dependents:** 0
 - **Priority Score:** 30607.5
-- **Functions:** 1/2 matched (target 1)
+- **Functions:** 1/2 matched (target 3)
 - **Missing functions:** `try_from`
-- **Types:** 2/4 matched (target 2)
+- **Types:** 2/4 matched (target 3)
 - **Missing types:** `TryRefIntoTransportContext`, `Error`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `transport.rs` vs expected `transport.rs`
-- **Proposed provenance header:** `// port-lint: source transport.rs` (current: `// port-lint: source transport.rs`)
-- **Lint issues:** 1
 
 ### 17. user.id
 
-- **Target:** `user.UserId [PROVENANCE-FALLBACK]`
+- **Target:** `user.UserId`
 - **Similarity:** 0.00
 - **Dependents:** 0
 - **Priority Score:** 10210.0
@@ -280,13 +228,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `eq`
 - **Types:** 1/1 matched (target 4)
 - **Missing types:** _none_
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `user/id.rs` vs expected `user/id.rs`
-- **Proposed provenance header:** `// port-lint: source user/id.rs` (current: `// port-lint: source user/id.rs`)
-- **Lint issues:** 1
 
 ### 18. mode
 
-- **Target:** `ramanet.Mode [PROVENANCE-FALLBACK]`
+- **Target:** `ramanet.Mode`
 - **Similarity:** 0.52
 - **Dependents:** 0
 - **Priority Score:** 404.8
@@ -294,15 +239,10 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** _none_
 - **Types:** 2/2 matched (target 3)
 - **Missing types:** _none_
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `mode.rs` vs expected `mode.rs`
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `tests:mode.rs` vs expected `mode.rs`
-- **Proposed provenance header:** `// port-lint: source mode.rs` (current: `// port-lint: source mode.rs`)
-- **Proposed provenance header:** `// port-lint: tests mode.rs` (current: `// port-lint: tests mode.rs`)
-- **Lint issues:** 2
 
 ### 19. address.parse_utils
 
-- **Target:** `address.ParseUtils [PROVENANCE-FALLBACK]`
+- **Target:** `address.ParseUtils`
 - **Similarity:** 0.64
 - **Dependents:** 0
 - **Priority Score:** 203.6
@@ -310,9 +250,6 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** _none_
 - **Types:** 0/0 matched (target 1)
 - **Missing types:** _none_
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `address/parse_utils.rs` vs expected `address/parse_utils.rs`
-- **Proposed provenance header:** `// port-lint: source address/parse_utils.rs` (current: `// port-lint: source address/parse_utils.rs`)
-- **Lint issues:** 1
 
 ### 20. credentials.mod
 
@@ -324,19 +261,17 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** _none_
 - **Types:** 0/0 matched (target 8)
 - **Missing types:** _none_
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `user/credentials/mod.rs` vs expected `user/credentials/mod.rs`
 - **Provenance warning:** port-lint provenance header matched only by basename: `tests:address/mod.rs` vs expected `user/credentials/mod.rs`
 - **Provenance warning:** port-lint provenance header matched only by basename: `tests:forwarded/mod.rs` vs expected `user/credentials/mod.rs`
 - **Provenance warning:** port-lint provenance header matched only by basename: `tests:user/mod.rs` vs expected `user/credentials/mod.rs`
-- **Proposed provenance header:** `// port-lint: source user/credentials/mod.rs` (current: `// port-lint: source user/credentials/mod.rs`)
 - **Proposed provenance header:** `// port-lint: tests user/credentials/mod.rs` (current: `// port-lint: tests address/mod.rs`)
 - **Proposed provenance header:** `// port-lint: tests user/credentials/mod.rs` (current: `// port-lint: tests forwarded/mod.rs`)
 - **Proposed provenance header:** `// port-lint: tests user/credentials/mod.rs` (current: `// port-lint: tests user/mod.rs`)
-- **Lint issues:** 4
+- **Lint issues:** 3
 
 ### 21. address.ip
 
-- **Target:** `address.Ip [PROVENANCE-FALLBACK]`
+- **Target:** `address.Ip`
 - **Similarity:** 1.00
 - **Dependents:** 0
 - **Priority Score:** 0.0
@@ -344,9 +279,6 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** _none_
 - **Types:** 0/0 matched (target 1)
 - **Missing types:** _none_
-- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `address/ip.rs` vs expected `address/ip.rs`
-- **Proposed provenance header:** `// port-lint: source address/ip.rs` (current: `// port-lint: source address/ip.rs`)
-- **Lint issues:** 1
 
 ## Success Criteria
 
@@ -368,33 +300,33 @@ do not treat them as the next implementation target by default.
 
 | Source | Expected target | Deps | Source path | Expected path |
 |--------|-----------------|------|-------------|---------------|
-| `address.mod` | `address.Mod` | 0 | `src/address/mod.rs` | `address/Mod.kt` |
-| `client.mod` | `client.Mod` | 0 | `src/client/mod.rs` | `client/Mod.kt` |
-| `pool.mod` | `client.pool.Mod` | 0 | `src/client/pool/mod.rs` | `client/pool/Mod.kt` |
-| `akamai.mod` | `fingerprint.akamai.Mod` | 0 | `src/fingerprint/akamai/mod.rs` | `fingerprint/akamai/Mod.kt` |
-| `ja4.mod` | `fingerprint.ja4.Mod` | 0 | `src/fingerprint/ja4/mod.rs` | `fingerprint/ja4/Mod.kt` |
-| `fingerprint.mod` | `fingerprint.Mod` | 0 | `src/fingerprint/mod.rs` | `fingerprint/Mod.kt` |
-| `peet.mod` | `fingerprint.peet.Mod` | 0 | `src/fingerprint/peet/mod.rs` | `fingerprint/peet/Mod.kt` |
-| `element.mod` | `forwarded.element.Mod` | 0 | `src/forwarded/element/mod.rs` | `forwarded/element/Mod.kt` |
-| `forwarded.mod` | `forwarded.Mod` | 0 | `src/forwarded/mod.rs` | `forwarded/Mod.kt` |
-| `http.mod` | `http.Mod` | 0 | `src/http/mod.rs` | `http/Mod.kt` |
-| `http.server.mod` | `http.server.Mod` | 0 | `src/http/server/mod.rs` | `http/server/Mod.kt` |
-| `match_replace.mod` | `http.uri.matchreplace.Mod` | 0 | `src/http/uri/match_replace/mod.rs` | `http/uri/matchreplace/Mod.kt` |
-| `uri.mod` | `http.uri.Mod` | 0 | `src/http/uri/mod.rs` | `http/uri/Mod.kt` |
-| `lib` | `Lib` | 0 | `src/lib.rs` | `Lib.kt` |
-| `proxy.mod` | `proxy.Mod` | 0 | `src/proxy/mod.rs` | `proxy/Mod.kt` |
-| `socket.mod` | `socket.Mod` | 0 | `src/socket/mod.rs` | `socket/Mod.kt` |
-| `stream.layer.http.mod` | `stream.layer.http.Mod` | 0 | `src/stream/layer/http/mod.rs` | `stream/layer/http/Mod.kt` |
-| `stream.layer.mod` | `stream.layer.Mod` | 0 | `src/stream/layer/mod.rs` | `stream/layer/Mod.kt` |
-| `tracker.mod` | `stream.layer.tracker.Mod` | 0 | `src/stream/layer/tracker/mod.rs` | `stream/layer/tracker/Mod.kt` |
-| `matcher.mod` | `stream.matcher.Mod` | 0 | `src/stream/matcher/mod.rs` | `stream/matcher/Mod.kt` |
-| `stream.mod` | `stream.Mod` | 0 | `src/stream/mod.rs` | `stream/Mod.kt` |
-| `service.mod` | `stream.service.Mod` | 0 | `src/stream/service/mod.rs` | `stream/service/Mod.kt` |
-| `test_utils.client.mod` | `testutils.client.Mod` | 0 | `src/test_utils/client/mod.rs` | `testutils/client/Mod.kt` |
-| `test_utils.mod` | `testutils.Mod` | 0 | `src/test_utils/mod.rs` | `testutils/Mod.kt` |
-| `tls.client.mod` | `tls.client.Mod` | 0 | `src/tls/client/mod.rs` | `tls/client/Mod.kt` |
-| `tls.mod` | `tls.Mod` | 0 | `src/tls/mod.rs` | `tls/Mod.kt` |
-| `server.mod` | `tls.server.Mod` | 0 | `src/tls/server/mod.rs` | `tls/server/Mod.kt` |
-| `layer.mod` | `user.layer.Mod` | 0 | `src/user/layer/mod.rs` | `user/layer/Mod.kt` |
-| `user.mod` | `user.Mod` | 0 | `src/user/mod.rs` | `user/Mod.kt` |
+| `address.mod` | `address.Mod` | 0 | `address/mod.rs` | `address/Mod.kt` |
+| `client.mod` | `client.Mod` | 0 | `client/mod.rs` | `client/Mod.kt` |
+| `pool.mod` | `client.pool.Mod` | 0 | `client/pool/mod.rs` | `client/pool/Mod.kt` |
+| `akamai.mod` | `fingerprint.akamai.Mod` | 0 | `fingerprint/akamai/mod.rs` | `fingerprint/akamai/Mod.kt` |
+| `ja4.mod` | `fingerprint.ja4.Mod` | 0 | `fingerprint/ja4/mod.rs` | `fingerprint/ja4/Mod.kt` |
+| `fingerprint.mod` | `fingerprint.Mod` | 0 | `fingerprint/mod.rs` | `fingerprint/Mod.kt` |
+| `peet.mod` | `fingerprint.peet.Mod` | 0 | `fingerprint/peet/mod.rs` | `fingerprint/peet/Mod.kt` |
+| `element.mod` | `forwarded.element.Mod` | 0 | `forwarded/element/mod.rs` | `forwarded/element/Mod.kt` |
+| `forwarded.mod` | `forwarded.Mod` | 0 | `forwarded/mod.rs` | `forwarded/Mod.kt` |
+| `http.mod` | `http.Mod` | 0 | `http/mod.rs` | `http/Mod.kt` |
+| `http.server.mod` | `http.server.Mod` | 0 | `http/server/mod.rs` | `http/server/Mod.kt` |
+| `match_replace.mod` | `http.uri.matchreplace.Mod` | 0 | `http/uri/match_replace/mod.rs` | `http/uri/matchreplace/Mod.kt` |
+| `uri.mod` | `http.uri.Mod` | 0 | `http/uri/mod.rs` | `http/uri/Mod.kt` |
+| `lib` | `Lib` | 0 | `lib.rs` | `Lib.kt` |
+| `proxy.mod` | `proxy.Mod` | 0 | `proxy/mod.rs` | `proxy/Mod.kt` |
+| `socket.mod` | `socket.Mod` | 0 | `socket/mod.rs` | `socket/Mod.kt` |
+| `stream.layer.http.mod` | `stream.layer.http.Mod` | 0 | `stream/layer/http/mod.rs` | `stream/layer/http/Mod.kt` |
+| `stream.layer.mod` | `stream.layer.Mod` | 0 | `stream/layer/mod.rs` | `stream/layer/Mod.kt` |
+| `tracker.mod` | `stream.layer.tracker.Mod` | 0 | `stream/layer/tracker/mod.rs` | `stream/layer/tracker/Mod.kt` |
+| `matcher.mod` | `stream.matcher.Mod` | 0 | `stream/matcher/mod.rs` | `stream/matcher/Mod.kt` |
+| `stream.mod` | `stream.Mod` | 0 | `stream/mod.rs` | `stream/Mod.kt` |
+| `service.mod` | `stream.service.Mod` | 0 | `stream/service/mod.rs` | `stream/service/Mod.kt` |
+| `test_utils.client.mod` | `testutils.client.Mod` | 0 | `test_utils/client/mod.rs` | `testutils/client/Mod.kt` |
+| `test_utils.mod` | `testutils.Mod` | 0 | `test_utils/mod.rs` | `testutils/Mod.kt` |
+| `tls.client.mod` | `tls.client.Mod` | 0 | `tls/client/mod.rs` | `tls/client/Mod.kt` |
+| `tls.mod` | `tls.Mod` | 0 | `tls/mod.rs` | `tls/Mod.kt` |
+| `server.mod` | `tls.server.Mod` | 0 | `tls/server/mod.rs` | `tls/server/Mod.kt` |
+| `layer.mod` | `user.layer.Mod` | 0 | `user/layer/mod.rs` | `user/layer/Mod.kt` |
+| `user.mod` | `user.Mod` | 0 | `user/mod.rs` | `user/Mod.kt` |
 
