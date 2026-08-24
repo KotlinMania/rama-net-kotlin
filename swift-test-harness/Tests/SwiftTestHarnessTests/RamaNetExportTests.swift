@@ -1,35 +1,33 @@
-import XCTest
+import Testing
 import RamaNet
 
-// Smoke test for the Kotlin → Swift Export → SPM → swift test pipeline.
-//
-// The file's mere existence and successful compilation prove three layers
-// of the pipeline:
-//
-//   1. `embedSwiftExportForXcode` produced `RamaNet.swiftmodule/`
-//      and the supporting KotlinRuntimeSupport / ExportedKotlinPackages /
-//      KotlinRuntime swiftmodule bundles. If any of them were missing,
-//      `import RamaNet` above would fail at compile time.
-//
-//   2. The static archive `libRamaNet.a` (produced by the
-//      `linkSwiftExportBinaryDebugStaticMacosArm64` and
-//      `mergeMacosDebugSwiftExportLibraries` tasks) supplied every
-//      `__root____*` and `KotlinError`-related symbol the Swift modules
-//      reference. If the archive were missing or empty, this test
-//      executable would fail to link with "undefined symbols for
-//      architecture arm64".
-//
-//   3. The Kotlin `swiftExport { moduleName = "RamaNet" }` and
-//      `flattenPackage = "io.github.kotlinmania.ramanet"` configuration in
-//      build.gradle.kts produced a module name that's both syntactically
-//      valid as a Swift identifier and reachable from this Package.swift
-//      via the `RamaNetLibrary` product.
-//
-// Add more meaningful per-API tests below as the Swift Export surface
-// grows. For now the import + a single passing assertion is the
-// canary that the pipeline is green for this repo.
-final class RamaNetExportTests: XCTestCase {
-    func testSwiftModuleLoads() throws {
-        XCTAssertTrue(true, "RamaNet swift module imported cleanly")
+@Suite("RamaNet Swift Export Suite")
+struct RamaNetExportTests {
+    @Test("Swift module loads cleanly")
+    func swiftModuleLoads() {
+        #expect(Bool(true), "RamaNet swift module imported cleanly")
+    }
+
+    @Test("Asn export works")
+    func asnExport() {
+        let asn = Asn.Companion.shared.parse(value: Swift.UInt32(13335))
+        #expect(asn.asUInt() == 13335)
+        #expect(asn.toString() == "AS13335")
+    }
+
+    @Test("TransportProtocol export works")
+    func transportProtocolExport() {
+        let tcp = TransportProtocol.Tcp
+        #expect(tcp.description == "Tcp")
+        let udp = TransportProtocol.Udp
+        #expect(udp.description == "Udp")
+    }
+
+    @Test("ForwardedProtocol export works")
+    func forwardedProtocolExport() {
+        let http = forwarded.ForwardedProtocol.Http
+        #expect(http.description == "Http")
+        let https = forwarded.ForwardedProtocol.Https
+        #expect(https.description == "Https")
     }
 }
