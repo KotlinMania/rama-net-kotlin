@@ -784,6 +784,12 @@ tasks.matching { it.name.contains("GenerateSPMPackage") }.configureEach {
     }
 }
 
+tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinNativeCompile>().configureEach {
+    compilerOptions {
+        freeCompilerArgs.add("-Xklib-duplicated-unique-name-strategy=allow-first-with-warning")
+    }
+}
+
 // Swift Export smoke test — produces the SPM package via embedSwiftExportForXcode
 // (spawned with the Xcode-style env it requires) and runs `swift test` against it,
 // so Swift Export breakage surfaces locally, not only in the swift.yml CI job.
