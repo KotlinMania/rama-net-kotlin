@@ -1,7 +1,7 @@
 // port-lint: source address/host_with_opt_port.rs
 package io.github.kotlinmania.ramanet.address
 
-import io.github.kotlinmania.ramanet.Protocol
+import io.github.kotlinmania.ramanet.NetProtocol
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -53,9 +53,9 @@ data class HostWithOptPort(
 
         fun exampleWithPort(port: UShort): HostWithOptPort = HostWithOptPort(Host.example(), port)
 
-        fun exampleHttp(): HostWithOptPort = HostWithOptPort(Host.example(), Protocol.HTTP_DEFAULT_PORT)
+        fun exampleHttp(): HostWithOptPort = HostWithOptPort(Host.example(), NetProtocol.HTTP_DEFAULT_PORT)
 
-        fun exampleHttps(): HostWithOptPort = HostWithOptPort(Host.example(), Protocol.HTTPS_DEFAULT_PORT)
+        fun exampleHttps(): HostWithOptPort = HostWithOptPort(Host.example(), NetProtocol.HTTPS_DEFAULT_PORT)
 
         fun parse(s: String): HostWithOptPort {
             if (s.isEmpty()) {

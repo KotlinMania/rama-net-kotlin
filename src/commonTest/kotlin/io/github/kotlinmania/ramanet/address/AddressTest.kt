@@ -1,7 +1,7 @@
 // port-lint: tests address/mod.rs
 package io.github.kotlinmania.ramanet.address
 
-import io.github.kotlinmania.ramanet.Protocol
+import io.github.kotlinmania.ramanet.NetProtocol
 import io.github.kotlinmania.ramanet.user.Basic
 import io.github.kotlinmania.ramanet.user.ProxyCredential
 import kotlin.test.Test
@@ -122,14 +122,14 @@ class AddressTest {
     @Test
     fun testProxyAddress() {
         val proxy = ProxyAddress.parse("http://user:pass@127.0.0.1:8080")
-        assertEquals(Protocol.Http, proxy.protocol)
+        assertEquals(NetProtocol.Http, proxy.protocol)
         assertEquals(ProxyCredential.BasicAuth(Basic("user", "pass")), proxy.credential)
         assertEquals(8080u.toUShort(), proxy.address.port)
         assertEquals("http://user:pass@127.0.0.1:8080", proxy.toString())
 
         val proxyDefaultPort = ProxyAddress.parse("https://proxy.example.com")
-        assertEquals(Protocol.Https, proxyDefaultPort.protocol)
-        assertEquals(Protocol.HTTPS_DEFAULT_PORT, proxyDefaultPort.address.port)
+        assertEquals(NetProtocol.Https, proxyDefaultPort.protocol)
+        assertEquals(NetProtocol.HTTPS_DEFAULT_PORT, proxyDefaultPort.address.port)
     }
 
     @Test

@@ -1,7 +1,7 @@
 // port-lint: tests forwarded/mod.rs
 package io.github.kotlinmania.ramanet.forwarded
 
-import io.github.kotlinmania.ramanet.Protocol
+import io.github.kotlinmania.ramanet.NetProtocol
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -30,10 +30,10 @@ class ForwardedTest {
 
     @Test
     fun testProtocolConversions() {
-        assertEquals(Protocol.Http, ForwardedProtocol.HTTP.toProtocol())
-        assertEquals(Protocol.Https, ForwardedProtocol.HTTPS.toProtocol())
-        assertEquals(ForwardedProtocol.HTTP, ForwardedProtocol.fromProtocol(Protocol.Http))
-        assertEquals(ForwardedProtocol.HTTPS, ForwardedProtocol.fromProtocol(Protocol.Https))
+        assertEquals(NetProtocol.Http, ForwardedProtocol.HTTP.toProtocol())
+        assertEquals(NetProtocol.Https, ForwardedProtocol.HTTPS.toProtocol())
+        assertEquals(ForwardedProtocol.HTTP, ForwardedProtocol.fromProtocol(NetProtocol.Http))
+        assertEquals(ForwardedProtocol.HTTPS, ForwardedProtocol.fromProtocol(NetProtocol.Https))
     }
 
     @Test

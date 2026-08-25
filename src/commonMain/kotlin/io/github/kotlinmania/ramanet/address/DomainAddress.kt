@@ -1,7 +1,7 @@
 // port-lint: source address/domain_address.rs
 package io.github.kotlinmania.ramanet.address
 
-import io.github.kotlinmania.ramanet.Protocol
+import io.github.kotlinmania.ramanet.NetProtocol
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -29,15 +29,15 @@ data class DomainAddress(
     }
 
     companion object {
-        fun exampleHttp(): DomainAddress = DomainAddress(Domain.example(), Protocol.HTTP_DEFAULT_PORT)
+        fun exampleHttp(): DomainAddress = DomainAddress(Domain.example(), NetProtocol.HTTP_DEFAULT_PORT)
 
-        fun exampleHttps(): DomainAddress = DomainAddress(Domain.example(), Protocol.HTTPS_DEFAULT_PORT)
+        fun exampleHttps(): DomainAddress = DomainAddress(Domain.example(), NetProtocol.HTTPS_DEFAULT_PORT)
 
         fun exampleWithPort(port: UShort): DomainAddress = DomainAddress(Domain.example(), port)
 
-        fun localhostHttp(): DomainAddress = DomainAddress(Domain.tldLocalhost(), Protocol.HTTP_DEFAULT_PORT)
+        fun localhostHttp(): DomainAddress = DomainAddress(Domain.tldLocalhost(), NetProtocol.HTTP_DEFAULT_PORT)
 
-        fun localhostHttps(): DomainAddress = DomainAddress(Domain.tldLocalhost(), Protocol.HTTPS_DEFAULT_PORT)
+        fun localhostHttps(): DomainAddress = DomainAddress(Domain.tldLocalhost(), NetProtocol.HTTPS_DEFAULT_PORT)
 
         fun localhostWithPort(port: UShort): DomainAddress = DomainAddress(Domain.tldLocalhost(), port)
 
