@@ -1,7 +1,7 @@
 // port-lint: source address/host_with_port.rs
 package io.github.kotlinmania.ramanet.address
 
-import io.github.kotlinmania.ramanet.Protocol
+import io.github.kotlinmania.ramanet.NetProtocol
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -43,9 +43,9 @@ data class HostWithPort(
 
         fun exampleWithPort(port: UShort): HostWithPort = HostWithPort(Host.example(), port)
 
-        fun exampleHttp(): HostWithPort = HostWithPort(Host.example(), Protocol.HTTP_DEFAULT_PORT)
+        fun exampleHttp(): HostWithPort = HostWithPort(Host.example(), NetProtocol.HTTP_DEFAULT_PORT)
 
-        fun exampleHttps(): HostWithPort = HostWithPort(Host.example(), Protocol.HTTPS_DEFAULT_PORT)
+        fun exampleHttps(): HostWithPort = HostWithPort(Host.example(), NetProtocol.HTTPS_DEFAULT_PORT)
 
         fun parse(s: String): HostWithPort {
             val (rawHost, port) = ParseUtils.splitPortFromStr(s)

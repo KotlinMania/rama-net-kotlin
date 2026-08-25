@@ -18,12 +18,12 @@ package io.github.kotlinmania.ramanet.forwarded
  * limitations under the License.
  */
 
-import io.github.kotlinmania.ramanet.Protocol
+import io.github.kotlinmania.ramanet.NetProtocol
 
 /**
  * Protocols that were forwarded.
  *
- * These are a subset of [Protocol].
+ * These are a subset of [NetProtocol].
  */
 enum class ForwardedProtocol(
     val scheme: String,
@@ -40,10 +40,10 @@ enum class ForwardedProtocol(
 
     fun asStr(): String = scheme
 
-    fun toProtocol(): Protocol =
+    fun toProtocol(): NetProtocol =
         when (this) {
-            Http -> Protocol.Http
-            Https -> Protocol.Https
+            Http -> NetProtocol.Http
+            Https -> NetProtocol.Https
         }
 
     override fun toString(): String = scheme
@@ -52,7 +52,7 @@ enum class ForwardedProtocol(
         val HTTP: ForwardedProtocol = Http
         val HTTPS: ForwardedProtocol = Https
 
-        fun fromProtocol(protocol: Protocol): ForwardedProtocol =
+        fun fromProtocol(protocol: NetProtocol): ForwardedProtocol =
             when {
                 protocol.isHttp() && protocol.isSecure() -> Https
                 protocol.isHttp() -> Http

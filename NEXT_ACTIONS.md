@@ -4,14 +4,14 @@ Based on AST analysis, here are the concrete next steps.
 
 ## Summary
 
-- **Files Present:** 21/104 (20.2%)
-- **Function parity:** 93/913 matched (target 269) — 10.2%
-- **Class/type parity:** 22/228 matched (target 68) — 9.6%
-- **Combined symbol parity:** 115/1141 matched (target 337) — 10.1%
-- **Average inline-code cosine:** 0.19 (function body across 20 matched files)
-- **Average documentation cosine:** 0.48 (doc text across 20 matched files)
-- **Cheat-zeroed Files:** 1
-- **Critical Issues:** 19 files with <0.60 function similarity
+- **Files Present:** 26/104 (25.0%)
+- **Function parity:** 105/909 matched (target 289) — 11.6%
+- **Class/type parity:** 26/228 matched (target 76) — 11.4%
+- **Combined symbol parity:** 131/1137 matched (target 365) — 11.5%
+- **Average inline-code cosine:** 0.19 (function body across 24 matched files)
+- **Average documentation cosine:** 0.48 (doc text across 24 matched files)
+- **Cheat-zeroed Files:** 2
+- **Critical Issues:** 24 files with <0.60 function similarity
 
 ## Priority 1: Fix Incomplete High-Dependency Files
 
@@ -92,9 +92,9 @@ Every matched file is listed below with function and type symbol parity.
 ### 6. address.domain_address
 
 - **Target:** `address.DomainAddress`
-- **Similarity:** 0.27
+- **Similarity:** 0.25
 - **Dependents:** 1
-- **Priority Score:** 1112007.4
+- **Priority Score:** 1112007.5
 - **Functions:** 8/17 matched (target 11)
 - **Missing functions:** `new`, `from`, `fmt`, `from_str`, `try_from`, `assert_eq`, `test_valid_domain_address`, `test_parse_invalid`, `test_parse_display`
 - **Types:** 1/3 matched (target 2)
@@ -148,7 +148,19 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Error`, `Err`
 - **Tests:** 0/12 matched
 
-### 11. forwarded.node
+### 11. proto
+
+- **Target:** `ramanet.Proto`
+- **Similarity:** 0.08
+- **Dependents:** 0
+- **Priority Score:** 142409.2
+- **Functions:** 10/20 matched (target 31)
+- **Missing functions:** `as_str`, `try_to_convert_str_to_non_custom_protocol`, `try_from`, `from_str`, `from`, `eq`, `fmt`, `validate_scheme_str`, `validate_scheme_slice`, `test_from_http_scheme`
+- **Types:** 0/4 matched (target 11)
+- **Missing types:** `Protocol`, `ProtocolKind`, `Error`, `Err`
+- **Tests:** 3/4 matched
+
+### 12. forwarded.node
 
 - **Target:** `forwarded.Node`
 - **Similarity:** 0.14
@@ -159,18 +171,6 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 3/5 matched (target 8)
 - **Missing types:** `Err`, `Error`
 - **Tests:** 0/3 matched
-
-### 12. proto
-
-- **Target:** `ramanet.Proto`
-- **Similarity:** 0.11
-- **Dependents:** 0
-- **Priority Score:** 132408.9
-- **Functions:** 10/20 matched (target 31)
-- **Missing functions:** `as_str`, `try_to_convert_str_to_non_custom_protocol`, `try_from`, `from_str`, `from`, `eq`, `fmt`, `validate_scheme_str`, `validate_scheme_slice`, `test_from_http_scheme`
-- **Types:** 1/4 matched (target 11)
-- **Missing types:** `ProtocolKind`, `Error`, `Err`
-- **Tests:** 3/4 matched
 
 ### 13. forwarded.proto
 
@@ -184,7 +184,19 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `ProtocolKind`, `Error`, `Err`
 - **Tests:** 0/2 matched
 
-### 14. forwarded.obfuscated
+### 14. matcher.private_ip
+
+- **Target:** `matcher.PrivateIp`
+- **Similarity:** 0.10
+- **Dependents:** 0
+- **Priority Score:** 71109.0
+- **Functions:** 3/9 matched (target 4)
+- **Missing functions:** `inner_new`, `default`, `test_local_ip_net_matcher_http`, `test_local_ip_net_matcher_socket_trait`, `local_addr`, `peer_addr`
+- **Types:** 1/2 matched (target 1)
+- **Missing types:** `FakeSocket`
+- **Tests:** 0/4 matched
+
+### 15. forwarded.obfuscated
 
 - **Target:** `forwarded.Obfuscated`
 - **Similarity:** 0.12
@@ -196,7 +208,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 0/6 matched
 
-### 15. asn
+### 16. asn
 
 - **Target:** `ramanet.Asn`
 - **Similarity:** 0.19
@@ -207,7 +219,43 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/3 matched (target 4)
 - **Missing types:** `AsnData`, `Error`
 
-### 16. transport
+### 17. matcher.loopback
+
+- **Target:** `matcher.Loopback`
+- **Similarity:** 0.23
+- **Dependents:** 0
+- **Priority Score:** 51007.7
+- **Functions:** 3/8 matched (target 10)
+- **Missing functions:** `default`, `test_loopback_matcher_http`, `test_loopback_matcher_socket_trait`, `local_addr`, `peer_addr`
+- **Types:** 2/2 matched (target 3)
+- **Missing types:** _none_
+- **Tests:** 0/4 matched
+
+### 18. matcher.socket
+
+- **Target:** `matcher.Socket`
+- **Similarity:** 0.25
+- **Dependents:** 0
+- **Priority Score:** 50907.5
+- **Functions:** 3/7 matched (target 3)
+- **Missing functions:** `test_socket_matcher_http`, `test_socket_matcher_socket_trait`, `local_addr`, `peer_addr`
+- **Types:** 1/2 matched (target 1)
+- **Missing types:** `FakeSocket`
+- **Tests:** 0/4 matched
+
+### 19. matcher.port
+
+- **Target:** `matcher.Port`
+- **Similarity:** 0.29
+- **Dependents:** 0
+- **Priority Score:** 50907.1
+- **Functions:** 3/7 matched (target 3)
+- **Missing functions:** `test_port_matcher_http`, `test_port_matcher_socket_trait`, `local_addr`, `peer_addr`
+- **Types:** 1/2 matched (target 1)
+- **Missing types:** `FakeSocket`
+- **Tests:** 0/4 matched
+
+### 20. transport
 
 - **Target:** `ramanet.Transport`
 - **Similarity:** 0.25
@@ -218,7 +266,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/4 matched (target 3)
 - **Missing types:** `TryRefIntoTransportContext`, `Error`
 
-### 17. user.id
+### 21. user.id
 
 - **Target:** `user.UserId`
 - **Similarity:** 0.00
@@ -229,7 +277,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/1 matched (target 4)
 - **Missing types:** _none_
 
-### 18. mode
+### 22. mode
 
 - **Target:** `ramanet.Mode`
 - **Similarity:** 0.52
@@ -240,7 +288,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/2 matched (target 3)
 - **Missing types:** _none_
 
-### 19. address.parse_utils
+### 23. address.parse_utils
 
 - **Target:** `address.ParseUtils`
 - **Similarity:** 0.64
@@ -251,25 +299,36 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/0 matched (target 1)
 - **Missing types:** _none_
 
-### 20. credentials.mod
+### 24. credentials.mod
 
-- **Target:** `user.Credentials [STUB] [PROVENANCE-FALLBACK]`
+- **Target:** `user.Credentials [STUB]`
 - **Similarity:** 0.00
 - **Dependents:** 0
 - **Priority Score:** 10.0
-- **Functions:** 0/0 matched (target 34)
+- **Functions:** 0/0 matched (target 9)
 - **Missing functions:** _none_
-- **Types:** 0/0 matched (target 8)
+- **Types:** 0/0 matched (target 5)
 - **Missing types:** _none_
-- **Provenance warning:** port-lint provenance header matched only by basename: `tests:address/mod.rs` vs expected `user/credentials/mod.rs`
-- **Provenance warning:** port-lint provenance header matched only by basename: `tests:forwarded/mod.rs` vs expected `user/credentials/mod.rs`
-- **Provenance warning:** port-lint provenance header matched only by basename: `tests:user/mod.rs` vs expected `user/credentials/mod.rs`
-- **Proposed provenance header:** `// port-lint: tests user/credentials/mod.rs` (current: `// port-lint: tests address/mod.rs`)
-- **Proposed provenance header:** `// port-lint: tests user/credentials/mod.rs` (current: `// port-lint: tests forwarded/mod.rs`)
-- **Proposed provenance header:** `// port-lint: tests user/credentials/mod.rs` (current: `// port-lint: tests user/mod.rs`)
+
+### 25. stream.mod
+
+- **Target:** `stream.Socket [STUB] [PROVENANCE-FALLBACK]`
+- **Similarity:** 0.00
+- **Dependents:** 0
+- **Priority Score:** 10.0
+- **Functions:** 0/0 matched (target 25)
+- **Missing functions:** _none_
+- **Types:** 0/0 matched (target 5)
+- **Missing types:** _none_
+- **Provenance warning:** port-lint provenance header matched only by basename: `tests:address/mod.rs` vs expected `stream/mod.rs`
+- **Provenance warning:** port-lint provenance header matched only by basename: `tests:forwarded/mod.rs` vs expected `stream/mod.rs`
+- **Provenance warning:** port-lint provenance header matched only by basename: `tests:user/mod.rs` vs expected `stream/mod.rs`
+- **Proposed provenance header:** `// port-lint: tests stream/mod.rs` (current: `// port-lint: tests address/mod.rs`)
+- **Proposed provenance header:** `// port-lint: tests stream/mod.rs` (current: `// port-lint: tests forwarded/mod.rs`)
+- **Proposed provenance header:** `// port-lint: tests stream/mod.rs` (current: `// port-lint: tests user/mod.rs`)
 - **Lint issues:** 3
 
-### 21. address.ip
+### 26. address.ip
 
 - **Target:** `address.Ip`
 - **Similarity:** 1.00
@@ -320,7 +379,6 @@ do not treat them as the next implementation target by default.
 | `stream.layer.mod` | `stream.layer.Mod` | 0 | `stream/layer/mod.rs` | `stream/layer/Mod.kt` |
 | `tracker.mod` | `stream.layer.tracker.Mod` | 0 | `stream/layer/tracker/mod.rs` | `stream/layer/tracker/Mod.kt` |
 | `matcher.mod` | `stream.matcher.Mod` | 0 | `stream/matcher/mod.rs` | `stream/matcher/Mod.kt` |
-| `stream.mod` | `stream.Mod` | 0 | `stream/mod.rs` | `stream/Mod.kt` |
 | `service.mod` | `stream.service.Mod` | 0 | `stream/service/mod.rs` | `stream/service/Mod.kt` |
 | `test_utils.client.mod` | `testutils.client.Mod` | 0 | `test_utils/client/mod.rs` | `testutils/client/Mod.kt` |
 | `test_utils.mod` | `testutils.Mod` | 0 | `test_utils/mod.rs` | `testutils/Mod.kt` |

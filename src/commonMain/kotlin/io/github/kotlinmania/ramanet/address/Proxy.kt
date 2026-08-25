@@ -1,7 +1,7 @@
 // port-lint: source address/proxy.rs
 package io.github.kotlinmania.ramanet.address
 
-import io.github.kotlinmania.ramanet.Protocol
+import io.github.kotlinmania.ramanet.NetProtocol
 import io.github.kotlinmania.ramanet.user.ProxyCredential
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
@@ -17,7 +17,7 @@ import kotlinx.serialization.encoding.Encoder
 @Serializable(with = ProxyAddressSerializer::class)
 data class ProxyAddress(
     val address: HostWithPort,
-    val protocol: Protocol? = null,
+    val protocol: NetProtocol? = null,
     val credential: ProxyCredential? = null,
 ) {
     override fun toString(): String {
@@ -51,7 +51,7 @@ data class ProxyAddress(
     companion object {
         fun parse(s: String): ProxyAddress {
             val bytes = s.encodeToByteArray()
-            val (protocol, consumed) = Protocol.tryToExtractProtocolFromUriScheme(bytes)
+            val (protocol, consumed) = NetProtocol.tryToExtractProtocolFromUriScheme(bytes)
             val rest = if (consumed > 0) s.substring(consumed) else s
 
             val authority = Authority.parse(rest)

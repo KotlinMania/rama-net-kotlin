@@ -12,8 +12,8 @@ import kotlinx.serialization.encoding.Encoder
 /**
  * Web protocols that are relevant to Rama.
  */
-@Serializable(with = ProtocolSerializer::class)
-sealed class Protocol : Comparable<Protocol> {
+@Serializable(with = NetProtocolSerializer::class)
+sealed class NetProtocol : Comparable<NetProtocol> {
     abstract val scheme: String
 
     /**
@@ -45,9 +45,9 @@ sealed class Protocol : Comparable<Protocol> {
 
     override fun toString(): String = scheme
 
-    override fun compareTo(other: Protocol): Int = scheme.compareTo(other.scheme, ignoreCase = true)
+    override fun compareTo(other: NetProtocol): Int = scheme.compareTo(other.scheme, ignoreCase = true)
 
-    data object Http : Protocol() {
+    data object Http : NetProtocol() {
         override val scheme: String = HTTP_SCHEME
 
         override fun isHttp(): Boolean = true
@@ -55,7 +55,7 @@ sealed class Protocol : Comparable<Protocol> {
         override fun defaultPort(): UShort = HTTP_DEFAULT_PORT
     }
 
-    data object Https : Protocol() {
+    data object Https : NetProtocol() {
         override val scheme: String = HTTPS_SCHEME
 
         override fun isHttp(): Boolean = true
@@ -65,7 +65,7 @@ sealed class Protocol : Comparable<Protocol> {
         override fun defaultPort(): UShort = HTTPS_DEFAULT_PORT
     }
 
-    data object Ws : Protocol() {
+    data object Ws : NetProtocol() {
         override val scheme: String = WS_SCHEME
 
         override fun isWs(): Boolean = true
@@ -73,7 +73,7 @@ sealed class Protocol : Comparable<Protocol> {
         override fun defaultPort(): UShort = WS_DEFAULT_PORT
     }
 
-    data object Wss : Protocol() {
+    data object Wss : NetProtocol() {
         override val scheme: String = WSS_SCHEME
 
         override fun isWs(): Boolean = true
@@ -83,7 +83,7 @@ sealed class Protocol : Comparable<Protocol> {
         override fun defaultPort(): UShort = WSS_DEFAULT_PORT
     }
 
-    data object Socks5 : Protocol() {
+    data object Socks5 : NetProtocol() {
         override val scheme: String = SOCKS5_SCHEME
 
         override fun isSocks5(): Boolean = true
@@ -91,7 +91,7 @@ sealed class Protocol : Comparable<Protocol> {
         override fun defaultPort(): UShort = SOCKS5_DEFAULT_PORT
     }
 
-    data object Socks5h : Protocol() {
+    data object Socks5h : NetProtocol() {
         override val scheme: String = SOCKS5H_SCHEME
 
         override fun isSocks5(): Boolean = true
@@ -101,7 +101,7 @@ sealed class Protocol : Comparable<Protocol> {
 
     data class Custom(
         val customScheme: String,
-    ) : Protocol() {
+    ) : NetProtocol() {
         init {
             require(validateScheme(customScheme)) { "invalid custom scheme: $customScheme" }
         }
@@ -112,27 +112,27 @@ sealed class Protocol : Comparable<Protocol> {
     companion object {
         const val HTTP_SCHEME: String = "http"
         const val HTTP_DEFAULT_PORT: UShort = 80u
-        val HTTP: Protocol = Http
+        val HTTP: NetProtocol = Http
 
         const val HTTPS_SCHEME: String = "https"
         const val HTTPS_DEFAULT_PORT: UShort = 443u
-        val HTTPS: Protocol = Https
+        val HTTPS: NetProtocol = Https
 
         const val WS_SCHEME: String = "ws"
         const val WS_DEFAULT_PORT: UShort = HTTP_DEFAULT_PORT
-        val WS: Protocol = Ws
+        val WS: NetProtocol = Ws
 
         const val WSS_SCHEME: String = "wss"
         const val WSS_DEFAULT_PORT: UShort = HTTPS_DEFAULT_PORT
-        val WSS: Protocol = Wss
+        val WSS: NetProtocol = Wss
 
         const val SOCKS5_SCHEME: String = "socks5"
         const val SOCKS5_DEFAULT_PORT: UShort = 1080u
-        val SOCKS5: Protocol = Socks5
+        val SOCKS5: NetProtocol = Socks5
 
         const val SOCKS5H_SCHEME: String = "socks5h"
         const val SOCKS5H_DEFAULT_PORT: UShort = SOCKS5_DEFAULT_PORT
-        val SOCKS5H: Protocol = Socks5h
+        val SOCKS5H: NetProtocol = Socks5h
 
         private const val MAX_SCHEME_LEN: Int = 64
 
@@ -152,14 +152,14 @@ sealed class Protocol : Comparable<Protocol> {
         }
 
         /**
-         * Creates a Protocol from a static string.
+         * Creates a NetProtocol from a static string.
          */
-        fun fromStatic(s: String): Protocol = parse(s)
+        fun fromStatic(s: String): NetProtocol = parse(s)
 
         /**
          * Parses a protocol string.
          */
-        fun parse(s: String): Protocol =
+        fun parse(s: String): NetProtocol =
             when {
                 s.isEmpty() || s.equals(HTTP_SCHEME, ignoreCase = true) -> Http
                 s.equals(HTTPS_SCHEME, ignoreCase = true) -> Https
@@ -168,15 +168,15 @@ sealed class Protocol : Comparable<Protocol> {
                 s.equals(SOCKS5_SCHEME, ignoreCase = true) -> Socks5
                 s.equals(SOCKS5H_SCHEME, ignoreCase = true) -> Socks5h
                 validateScheme(s) -> Custom(s)
-                else -> throw InvalidProtocolException("invalid protocol string: $s")
+                else -> throw InvalidNetProtocolException("invalid protocol string: $s")
             }
 
         /**
          * Extracts protocol from URI scheme bytes.
          *
-         * Returns (Protocol?, bytesConsumed).
+         * Returns (NetProtocol?, bytesConsumed).
          */
-        fun tryToExtractProtocolFromUriScheme(bytes: ByteArray): Pair<Protocol?, Int> {
+        fun tryToExtractProtocolFromUriScheme(bytes: ByteArray): Pair<NetProtocol?, Int> {
             if (bytes.isEmpty()) {
                 throw IllegalArgumentException("empty uri contains no scheme")
             }
@@ -202,17 +202,19 @@ sealed class Protocol : Comparable<Protocol> {
 /**
  * Exception thrown when an invalid protocol string is parsed.
  */
-class InvalidProtocolException(
+class InvalidNetProtocolException(
     message: String = "invalid protocol string",
 ) : IllegalArgumentException(message)
 
-object ProtocolSerializer : KSerializer<Protocol> {
+object NetProtocolSerializer : KSerializer<NetProtocol> {
     override val descriptor: SerialDescriptor =
-        PrimitiveSerialDescriptor("io.github.kotlinmania.ramanet.Protocol", PrimitiveKind.STRING)
+        PrimitiveSerialDescriptor("io.github.kotlinmania.ramanet.NetProtocol", PrimitiveKind.STRING)
 
-    override fun serialize(encoder: Encoder, value: Protocol) {
+    override fun serialize(encoder: Encoder, value: NetProtocol) {
         encoder.encodeString(value.scheme)
     }
 
-    override fun deserialize(decoder: Decoder): Protocol = Protocol.parse(decoder.decodeString())
+    override fun deserialize(decoder: Decoder): NetProtocol = NetProtocol.parse(decoder.decodeString())
 }
+
+

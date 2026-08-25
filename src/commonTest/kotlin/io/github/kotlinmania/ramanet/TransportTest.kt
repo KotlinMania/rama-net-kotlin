@@ -27,7 +27,7 @@ class TransportTest {
         assertEquals(8080u.toUShort(), hostPort?.port)
 
         val authWithoutPort = HostWithOptPort(host, null)
-        val ctxWithAppProto = TransportContext(TransportProtocol.Tcp, authWithoutPort, Protocol.Http)
+        val ctxWithAppProto = TransportContext(TransportProtocol.Tcp, authWithoutPort, NetProtocol.Http)
         assertEquals(80u.toUShort(), ctxWithAppProto.hostWithPort()?.port)
 
         val ctxWithoutAppProto = TransportContext(TransportProtocol.Tcp, authWithoutPort, null)

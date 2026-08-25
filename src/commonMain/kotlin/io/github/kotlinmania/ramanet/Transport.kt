@@ -18,7 +18,7 @@ enum class TransportProtocol {
 data class TransportContext(
     val protocol: TransportProtocol,
     val authority: HostWithOptPort,
-    val appProtocol: Protocol? = null,
+    val appProtocol: NetProtocol? = null,
 ) {
     fun hostWithPort(): HostWithPort? {
         val port =
