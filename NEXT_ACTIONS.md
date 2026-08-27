@@ -5,9 +5,9 @@ Based on AST analysis, here are the concrete next steps.
 ## Summary
 
 - **Files Present:** 26/104 (25.0%)
-- **Function parity:** 105/909 matched (target 289) — 11.6%
-- **Class/type parity:** 26/228 matched (target 76) — 11.4%
-- **Combined symbol parity:** 131/1137 matched (target 365) — 11.5%
+- **Function parity:** 105/1117 matched (target 289) — 9.4%
+- **Class/type parity:** 26/290 matched (target 76) — 9.0%
+- **Combined symbol parity:** 131/1407 matched (target 365) — 9.3%
 - **Average inline-code cosine:** 0.19 (function body across 24 matched files)
 - **Average documentation cosine:** 0.48 (doc text across 24 matched files)
 - **Cheat-zeroed Files:** 2
@@ -347,44 +347,4 @@ For each file to be considered "complete":
 - All tests ported
 - Documentation ported
 - port-lint header present
-
-## Reexport / Wiring Modules
-
-These files match `reexport_modules` patterns in `.ast_distance_config.json`. They are filtered out of
-normal priority and missing-file ladders because they are wiring
-modules, not direct logic ports. Consult them for call-site routing;
-do not treat them as the next implementation target by default.
-
-### Missing
-
-| Source | Expected target | Deps | Source path | Expected path |
-|--------|-----------------|------|-------------|---------------|
-| `address.mod` | `address.Mod` | 0 | `address/mod.rs` | `address/Mod.kt` |
-| `client.mod` | `client.Mod` | 0 | `client/mod.rs` | `client/Mod.kt` |
-| `pool.mod` | `client.pool.Mod` | 0 | `client/pool/mod.rs` | `client/pool/Mod.kt` |
-| `akamai.mod` | `fingerprint.akamai.Mod` | 0 | `fingerprint/akamai/mod.rs` | `fingerprint/akamai/Mod.kt` |
-| `ja4.mod` | `fingerprint.ja4.Mod` | 0 | `fingerprint/ja4/mod.rs` | `fingerprint/ja4/Mod.kt` |
-| `fingerprint.mod` | `fingerprint.Mod` | 0 | `fingerprint/mod.rs` | `fingerprint/Mod.kt` |
-| `peet.mod` | `fingerprint.peet.Mod` | 0 | `fingerprint/peet/mod.rs` | `fingerprint/peet/Mod.kt` |
-| `element.mod` | `forwarded.element.Mod` | 0 | `forwarded/element/mod.rs` | `forwarded/element/Mod.kt` |
-| `forwarded.mod` | `forwarded.Mod` | 0 | `forwarded/mod.rs` | `forwarded/Mod.kt` |
-| `http.mod` | `http.Mod` | 0 | `http/mod.rs` | `http/Mod.kt` |
-| `http.server.mod` | `http.server.Mod` | 0 | `http/server/mod.rs` | `http/server/Mod.kt` |
-| `match_replace.mod` | `http.uri.matchreplace.Mod` | 0 | `http/uri/match_replace/mod.rs` | `http/uri/matchreplace/Mod.kt` |
-| `uri.mod` | `http.uri.Mod` | 0 | `http/uri/mod.rs` | `http/uri/Mod.kt` |
-| `lib` | `Lib` | 0 | `lib.rs` | `Lib.kt` |
-| `proxy.mod` | `proxy.Mod` | 0 | `proxy/mod.rs` | `proxy/Mod.kt` |
-| `socket.mod` | `socket.Mod` | 0 | `socket/mod.rs` | `socket/Mod.kt` |
-| `stream.layer.http.mod` | `stream.layer.http.Mod` | 0 | `stream/layer/http/mod.rs` | `stream/layer/http/Mod.kt` |
-| `stream.layer.mod` | `stream.layer.Mod` | 0 | `stream/layer/mod.rs` | `stream/layer/Mod.kt` |
-| `tracker.mod` | `stream.layer.tracker.Mod` | 0 | `stream/layer/tracker/mod.rs` | `stream/layer/tracker/Mod.kt` |
-| `matcher.mod` | `stream.matcher.Mod` | 0 | `stream/matcher/mod.rs` | `stream/matcher/Mod.kt` |
-| `service.mod` | `stream.service.Mod` | 0 | `stream/service/mod.rs` | `stream/service/Mod.kt` |
-| `test_utils.client.mod` | `testutils.client.Mod` | 0 | `test_utils/client/mod.rs` | `testutils/client/Mod.kt` |
-| `test_utils.mod` | `testutils.Mod` | 0 | `test_utils/mod.rs` | `testutils/Mod.kt` |
-| `tls.client.mod` | `tls.client.Mod` | 0 | `tls/client/mod.rs` | `tls/client/Mod.kt` |
-| `tls.mod` | `tls.Mod` | 0 | `tls/mod.rs` | `tls/Mod.kt` |
-| `server.mod` | `tls.server.Mod` | 0 | `tls/server/mod.rs` | `tls/server/Mod.kt` |
-| `layer.mod` | `user.layer.Mod` | 0 | `user/layer/mod.rs` | `user/layer/Mod.kt` |
-| `user.mod` | `user.Mod` | 0 | `user/mod.rs` | `user/Mod.kt` |
 
