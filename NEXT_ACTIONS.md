@@ -22,7 +22,7 @@ No incomplete high-dependency files detected.
 Critical missing files (>10 dependencies):
 
 1. **match_replace.fmt** (11 deps)
-   - Path: `rama-net/src/http/uri/match_replace/fmt.rs`
+   - Path: `http/uri/match_replace/fmt.rs`
    - Essential for 11 other files
 
 ## Detailed Work Items
@@ -148,7 +148,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Error`, `Err`
 - **Tests:** 0/12 matched
 
-### 11. rama-net.proto
+### 11. proto
 
 - **Target:** `ramanet.Proto`
 - **Similarity:** 0.08
@@ -208,7 +208,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 0/6 matched
 
-### 16. rama-net.asn
+### 16. asn
 
 - **Target:** `ramanet.Asn`
 - **Similarity:** 0.19
@@ -255,7 +255,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `FakeSocket`
 - **Tests:** 0/4 matched
 
-### 20. rama-net.transport
+### 20. transport
 
 - **Target:** `ramanet.Transport`
 - **Similarity:** 0.25
@@ -277,7 +277,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/1 matched (target 4)
 - **Missing types:** _none_
 
-### 22. rama-net.mode
+### 22. mode
 
 - **Target:** `ramanet.Mode`
 - **Similarity:** 0.52
@@ -320,12 +320,12 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** _none_
 - **Types:** 0/0 matched (target 5)
 - **Missing types:** _none_
-- **Provenance warning:** port-lint provenance header matched only by basename: `tests:rama-net/src/address/mod.rs` vs expected `stream/mod.rs`
-- **Provenance warning:** port-lint provenance header matched only by basename: `tests:rama-net/src/forwarded/mod.rs` vs expected `stream/mod.rs`
-- **Provenance warning:** port-lint provenance header matched only by basename: `tests:rama-net/src/user/mod.rs` vs expected `stream/mod.rs`
-- **Proposed provenance header:** `// port-lint: tests stream/mod.rs` (current: `// port-lint: tests rama-net/src/address/mod.rs`)
-- **Proposed provenance header:** `// port-lint: tests stream/mod.rs` (current: `// port-lint: tests rama-net/src/forwarded/mod.rs`)
-- **Proposed provenance header:** `// port-lint: tests stream/mod.rs` (current: `// port-lint: tests rama-net/src/user/mod.rs`)
+- **Provenance warning:** port-lint provenance header matched only by basename: `tests:address/mod.rs` vs expected `stream/mod.rs`
+- **Provenance warning:** port-lint provenance header matched only by basename: `tests:forwarded/mod.rs` vs expected `stream/mod.rs`
+- **Provenance warning:** port-lint provenance header matched only by basename: `tests:user/mod.rs` vs expected `stream/mod.rs`
+- **Proposed provenance header:** `// port-lint: tests stream/mod.rs` (current: `// port-lint: tests address/mod.rs`)
+- **Proposed provenance header:** `// port-lint: tests stream/mod.rs` (current: `// port-lint: tests forwarded/mod.rs`)
+- **Proposed provenance header:** `// port-lint: tests stream/mod.rs` (current: `// port-lint: tests user/mod.rs`)
 - **Lint issues:** 3
 
 ### 26. address.ip

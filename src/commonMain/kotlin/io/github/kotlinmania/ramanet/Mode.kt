@@ -1,4 +1,4 @@
-// port-lint: source rama-net/src/mode.rs
+// port-lint: source mode.rs
 package io.github.kotlinmania.ramanet
 
 /**

@@ -1,4 +1,4 @@
-// port-lint: source rama-net/src/address/parse_utils.rs
+// port-lint: source address/parse_utils.rs
 package io.github.kotlinmania.ramanet.address
 
 internal object ParseUtils {
