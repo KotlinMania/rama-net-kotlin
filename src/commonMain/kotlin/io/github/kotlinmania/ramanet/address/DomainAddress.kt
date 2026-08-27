@@ -1,4 +1,4 @@
-// port-lint: source address/domain_address.rs
+// port-lint: source rama-net/src/address/domain_address.rs
 package io.github.kotlinmania.ramanet.address
 
 import io.github.kotlinmania.ramanet.NetProtocol

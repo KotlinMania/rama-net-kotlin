@@ -1,4 +1,4 @@
-// port-lint: tests stream/matcher/loopback.rs
+// port-lint: tests rama-net/src/stream/matcher/loopback.rs
 package io.github.kotlinmania.ramanet.stream.matcher
 
 import io.github.kotlinmania.ramanet.address.SocketAddress
