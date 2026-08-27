@@ -13,6 +13,7 @@ class MatcherTest {
         val peer: SocketAddress?,
     ) : Socket {
         override fun localAddr(): SocketAddress? = local
+
         override fun peerAddr(): SocketAddress? = peer
     }
 
