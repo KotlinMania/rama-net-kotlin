@@ -1,4 +1,4 @@
-// port-lint: source rama-net/src/stream/matcher/private_ip.rs
+// port-lint: source stream/matcher/private_ip.rs
 package io.github.kotlinmania.ramanet.stream.matcher
 
 import io.github.kotlinmania.ramanet.address.ParseUtils

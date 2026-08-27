@@ -1,4 +1,4 @@
-// port-lint: source rama-net/src/asn.rs
+// port-lint: source asn.rs
 package io.github.kotlinmania.ramanet
 
 import kotlinx.serialization.KSerializer
