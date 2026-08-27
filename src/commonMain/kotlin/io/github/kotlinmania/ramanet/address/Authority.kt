@@ -1,4 +1,4 @@
-// port-lint: source address/authority.rs
+// port-lint: source rama-net/src/address/authority.rs
 package io.github.kotlinmania.ramanet.address
 
 import io.github.kotlinmania.ramanet.user.Basic
