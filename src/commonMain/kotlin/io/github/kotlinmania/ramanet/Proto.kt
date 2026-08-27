@@ -216,5 +216,3 @@ object NetProtocolSerializer : KSerializer<NetProtocol> {
 
     override fun deserialize(decoder: Decoder): NetProtocol = NetProtocol.parse(decoder.decodeString())
 }
-
-

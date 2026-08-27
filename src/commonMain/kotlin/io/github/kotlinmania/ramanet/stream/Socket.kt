@@ -8,6 +8,7 @@ import io.github.kotlinmania.ramanet.address.SocketAddress
  */
 interface Socket {
     fun localAddr(): SocketAddress?
+
     fun peerAddr(): SocketAddress?
 }
 
