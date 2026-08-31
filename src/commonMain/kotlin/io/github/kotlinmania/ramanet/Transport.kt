@@ -1,4 +1,4 @@
-// port-lint: source rama-net/src/transport.rs
+// port-lint: source transport.rs
 package io.github.kotlinmania.ramanet
 
 import io.github.kotlinmania.ramanet.address.HostWithOptPort

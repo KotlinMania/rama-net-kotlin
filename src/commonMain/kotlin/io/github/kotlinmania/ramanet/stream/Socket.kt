@@ -1,4 +1,4 @@
-// port-lint: source rama-net/src/stream/socket.rs
+// port-lint: source stream/socket.rs
 package io.github.kotlinmania.ramanet.stream
 
 import io.github.kotlinmania.ramanet.address.SocketAddress
