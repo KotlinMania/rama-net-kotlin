@@ -5,12 +5,12 @@ Based on AST analysis, here are the concrete next steps.
 ## Summary
 
 - **Files Present:** 30/104 (28.8%)
-- **Function parity:** 103/1081 matched (target 251) — 9.5%
-- **Class/type parity:** 28/285 matched (target 67) — 9.8%
-- **Combined symbol parity:** 131/1366 matched (target 318) — 9.6%
+- **Function parity:** 105/1102 matched (target 289) — 9.5%
+- **Class/type parity:** 28/290 matched (target 76) — 9.7%
+- **Combined symbol parity:** 133/1392 matched (target 365) — 9.6%
 - **Average inline-code cosine:** 0.18 (function body across 25 matched files)
 - **Average documentation cosine:** 0.48 (doc text across 25 matched files)
-- **Cheat-zeroed Files:** 1
+- **Cheat-zeroed Files:** 6
 - **Critical Issues:** 28 files with <0.60 function similarity
 
 ## Priority 1: Fix Incomplete High-Dependency Files
@@ -22,7 +22,7 @@ No incomplete high-dependency files detected.
 Critical missing files (>10 dependencies):
 
 1. **match_replace.fmt** (11 deps)
-   - Path: `http/uri/match_replace/fmt.rs`
+   - Path: `rama-net/src/http/uri/match_replace/fmt.rs`
    - Essential for 11 other files
 
 ## Detailed Work Items
@@ -135,7 +135,19 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Err`, `Error`
 - **Tests:** 0/4 matched
 
-### 10. address.domain_trie
+### 10. forwarded.mod
+
+- **Target:** `forwarded.Mod [STUB]`
+- **Similarity:** 0.00
+- **Dependents:** 0
+- **Priority Score:** 242410.0
+- **Functions:** 0/19 matched (target 13)
+- **Missing functions:** `new`, `client_host`, `client_socket_addr`, `client_port`, `client_ip`, `client_proto`, `client_version`, `append`, `extend`, `iter`, `into_iter`, `from`, `fmt`, `from_str`, `try_from`, `test_forwarded_parse_invalid`, `test_forwarded_parse_happy_spec`, `test_forwarded_client_authority`, `test_forwarded_client_protoy`
+- **Types:** 0/5 matched (target 1)
+- **Missing types:** `Forwarded`, `Item`, `IntoIter`, `Err`, `Error`
+- **Tests:** 0/4 matched
+
+### 11. address.domain_trie
 
 - **Target:** `address.DomainTrie`
 - **Similarity:** 0.03
@@ -147,7 +159,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 0/5 matched
 
-### 11. address.proxy
+### 12. address.proxy
 
 - **Target:** `address.Proxy`
 - **Similarity:** 0.03
@@ -159,7 +171,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Error`, `Err`
 - **Tests:** 0/12 matched
 
-### 12. proto
+### 13. rama-net.proto
 
 - **Target:** `ramanet.Proto`
 - **Similarity:** 0.08
@@ -171,7 +183,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Protocol`, `ProtocolKind`, `Error`, `Err`
 - **Tests:** 3/4 matched
 
-### 13. forwarded.node
+### 14. forwarded.node
 
 - **Target:** `forwarded.Node`
 - **Similarity:** 0.14
@@ -183,7 +195,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Err`, `Error`
 - **Tests:** 0/3 matched
 
-### 14. forwarded.proto
+### 15. forwarded.proto
 
 - **Target:** `forwarded.ForwardedProtocol`
 - **Similarity:** 0.05
@@ -195,7 +207,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `ProtocolKind`, `Error`, `Err`
 - **Tests:** 0/2 matched
 
-### 15. matcher.private_ip
+### 16. matcher.private_ip
 
 - **Target:** `matcher.PrivateIp`
 - **Similarity:** 0.10
@@ -207,7 +219,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `FakeSocket`
 - **Tests:** 0/4 matched
 
-### 16. forwarded.obfuscated
+### 17. forwarded.obfuscated
 
 - **Target:** `forwarded.Obfuscated`
 - **Similarity:** 0.12
@@ -219,7 +231,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 0/6 matched
 
-### 17. asn
+### 18. rama-net.asn
 
 - **Target:** `ramanet.Asn`
 - **Similarity:** 0.19
@@ -230,7 +242,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/3 matched (target 4)
 - **Missing types:** `AsnData`, `Error`
 
-### 18. matcher.loopback
+### 19. matcher.loopback
 
 - **Target:** `matcher.Loopback`
 - **Similarity:** 0.23
@@ -242,7 +254,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 0/4 matched
 
-### 19. matcher.socket
+### 20. matcher.socket
 
 - **Target:** `matcher.Socket`
 - **Similarity:** 0.25
@@ -254,7 +266,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `FakeSocket`
 - **Tests:** 0/4 matched
 
-### 20. matcher.port
+### 21. matcher.port
 
 - **Target:** `matcher.Port`
 - **Similarity:** 0.29
@@ -266,7 +278,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `FakeSocket`
 - **Tests:** 0/4 matched
 
-### 21. transport
+### 22. rama-net.transport
 
 - **Target:** `ramanet.Transport`
 - **Similarity:** 0.25
@@ -277,7 +289,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/4 matched (target 3)
 - **Missing types:** `TryRefIntoTransportContext`, `Error`
 
-### 22. user.id
+### 23. user.id
 
 - **Target:** `user.UserId`
 - **Similarity:** 0.00
@@ -288,7 +300,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/1 matched (target 4)
 - **Missing types:** _none_
 
-### 23. mode
+### 24. rama-net.mode
 
 - **Target:** `ramanet.Mode`
 - **Similarity:** 0.52
@@ -299,7 +311,62 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/2 matched (target 3)
 - **Missing types:** _none_
 
-### 24. address.ip
+### 25. address.parse_utils
+
+- **Target:** `address.ParseUtils`
+- **Similarity:** 0.64
+- **Dependents:** 0
+- **Priority Score:** 203.6
+- **Functions:** 2/2 matched (target 4)
+- **Missing functions:** _none_
+- **Types:** 0/0 matched (target 1)
+- **Missing types:** _none_
+
+### 26. address.mod
+
+- **Target:** `address.Mod [STUB]`
+- **Similarity:** 0.00
+- **Dependents:** 0
+- **Priority Score:** 10.0
+- **Functions:** 0/0 matched (target 9)
+- **Missing functions:** _none_
+- **Types:** 0/0 matched (target 1)
+- **Missing types:** _none_
+
+### 27. stream.mod
+
+- **Target:** `stream.Mod [STUB]`
+- **Similarity:** 0.00
+- **Dependents:** 0
+- **Priority Score:** 10.0
+- **Functions:** 0/0 matched
+- **Missing functions:** _none_
+- **Types:** 0/0 matched
+- **Missing types:** _none_
+
+### 28. user.mod
+
+- **Target:** `user.Mod [STUB]`
+- **Similarity:** 0.00
+- **Dependents:** 0
+- **Priority Score:** 10.0
+- **Functions:** 0/0 matched (target 3)
+- **Missing functions:** _none_
+- **Types:** 0/0 matched (target 1)
+- **Missing types:** _none_
+
+### 29. credentials.mod
+
+- **Target:** `user.Credentials [STUB]`
+- **Similarity:** 0.00
+- **Dependents:** 0
+- **Priority Score:** 10.0
+- **Functions:** 0/0 matched (target 9)
+- **Missing functions:** _none_
+- **Types:** 0/0 matched (target 5)
+- **Missing types:** _none_
+
+### 30. address.ip
 
 - **Target:** `address.Ip`
 - **Similarity:** 1.00
@@ -318,22 +385,4 @@ For each file to be considered "complete":
 - All tests ported
 - Documentation ported
 - port-lint header present
-
-## Reexport / Wiring Modules
-
-These files match `reexport_modules` patterns in `.ast_distance_config.json`. They are filtered out of
-normal priority and missing-file ladders because they are wiring
-modules, not direct logic ports. Consult them for call-site routing;
-do not treat them as the next implementation target by default.
-
-### Matched
-
-| Source | Target | Path |
-|--------|--------|------|
-| `forwarded.mod` | `forwarded.Mod` | `forwarded/mod` |
-| `address.parse_utils` | `address.ParseUtils` | `address/parse_utils` |
-| `address.mod` | `address.Mod` | `address/mod` |
-| `stream.mod` | `stream.Mod` | `stream/mod` |
-| `user.mod` | `user.Mod` | `user/mod` |
-| `credentials.mod` | `user.Credentials` | `user/credentials/mod` |
 

@@ -1,4 +1,4 @@
-// port-lint: source address/domain_trie.rs
+// port-lint: source rama-net/src/address/domain_trie.rs
 package io.github.kotlinmania.ramanet.address
 
 /**

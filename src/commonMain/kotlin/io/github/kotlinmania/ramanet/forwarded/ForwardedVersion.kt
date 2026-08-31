@@ -1,4 +1,4 @@
-// port-lint: source forwarded/version.rs
+// port-lint: source rama-net/src/forwarded/version.rs
 package io.github.kotlinmania.ramanet.forwarded
 
 /*

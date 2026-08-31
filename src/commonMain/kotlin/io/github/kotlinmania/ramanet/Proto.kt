@@ -1,4 +1,4 @@
-// port-lint: source proto.rs
+// port-lint: source rama-net/src/proto.rs
 package io.github.kotlinmania.ramanet
 
 import kotlinx.serialization.KSerializer
