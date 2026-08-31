@@ -1,4 +1,4 @@
-// port-lint: source stream/matcher/port.rs
+// port-lint: source rama-net/src/stream/matcher/port.rs
 package io.github.kotlinmania.ramanet.stream.matcher
 
 import io.github.kotlinmania.ramanet.stream.Socket

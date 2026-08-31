@@ -1,4 +1,4 @@
-// port-lint: tests transport.rs
+// port-lint: tests rama-net/src/transport.rs
 package io.github.kotlinmania.ramanet
 
 import io.github.kotlinmania.ramanet.address.Domain
