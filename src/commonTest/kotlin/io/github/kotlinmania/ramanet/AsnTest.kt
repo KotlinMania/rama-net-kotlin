@@ -1,4 +1,4 @@
-// port-lint: tests asn.rs
+// port-lint: tests rama-net/src/asn.rs
 package io.github.kotlinmania.ramanet
 
 import kotlin.test.Test

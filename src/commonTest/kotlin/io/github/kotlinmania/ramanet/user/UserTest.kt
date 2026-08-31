@@ -1,4 +1,4 @@
-// port-lint: tests user/mod.rs
+// port-lint: tests rama-net/src/user/mod.rs
 package io.github.kotlinmania.ramanet.user
 
 import kotlin.test.Test

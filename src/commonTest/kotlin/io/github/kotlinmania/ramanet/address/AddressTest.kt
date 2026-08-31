@@ -1,4 +1,4 @@
-// port-lint: tests address/mod.rs
+// port-lint: tests rama-net/src/address/mod.rs
 package io.github.kotlinmania.ramanet.address
 
 import io.github.kotlinmania.ramanet.NetProtocol
