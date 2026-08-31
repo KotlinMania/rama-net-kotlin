@@ -1,4 +1,4 @@
-// port-lint: source rama-net/src/address/host.rs
+// port-lint: source address/host.rs
 package io.github.kotlinmania.ramanet.address
 
 import kotlinx.serialization.KSerializer

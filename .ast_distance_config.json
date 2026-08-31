@@ -15,5 +15,24 @@
     "todos": true,
     "lint": true
   },
-  "reexport_modules": []
+  "reexport_modules": [
+    "address/mod",
+    "address/mod.rs",
+    "address.mod",
+    "forwarded/mod",
+    "forwarded/mod.rs",
+    "forwarded.mod",
+    "stream/mod",
+    "stream/mod.rs",
+    "stream.mod",
+    "user/mod",
+    "user/mod.rs",
+    "user.mod",
+    "user/credentials/mod",
+    "user/credentials/mod.rs",
+    "user.credentials.mod",
+    "address/parse_utils",
+    "address/parse_utils.rs",
+    "address.parse_utils"
+  ]
 }
