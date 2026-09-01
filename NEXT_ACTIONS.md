@@ -4,14 +4,14 @@ Based on AST analysis, here are the concrete next steps.
 
 ## Summary
 
-- **Files Present:** 30/104 (28.8%)
-- **Function parity:** 103/1081 matched (target 251) — 9.5%
-- **Class/type parity:** 28/285 matched (target 67) — 9.8%
-- **Combined symbol parity:** 131/1366 matched (target 318) — 9.6%
-- **Average inline-code cosine:** 0.18 (function body across 25 matched files)
-- **Average documentation cosine:** 0.48 (doc text across 25 matched files)
-- **Cheat-zeroed Files:** 1
-- **Critical Issues:** 28 files with <0.60 function similarity
+- **Files Present:** 35/104 (33.7%)
+- **Function parity:** 117/1056 matched (target 278) — 11.1%
+- **Class/type parity:** 32/285 matched (target 82) — 11.2%
+- **Combined symbol parity:** 149/1341 matched (target 360) — 11.1%
+- **Average inline-code cosine:** 0.20 (function body across 29 matched files)
+- **Average documentation cosine:** 0.53 (doc text across 29 matched files)
+- **Cheat-zeroed Files:** 3
+- **Critical Issues:** 32 files with <0.60 function similarity
 
 ## Priority 1: Fix Incomplete High-Dependency Files
 
@@ -77,7 +77,22 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Err`, `Error`, `Is`
 - **Tests:** 0/8 matched
 
-### 5. address.socket_address
+### 5. socket.interface
+
+- **Target:** `socket.Interface [PROVENANCE-FALLBACK]`
+- **Similarity:** 0.20
+- **Dependents:** 2
+- **Priority Score:** 2142908.0
+- **Functions:** 13/24 matched (target 26)
+- **Missing functions:** `new`, `fmt`, `from_str`, `from`, `assert_eq_socket_address`, `test_parse_valid_socket_address`, `assert_eq_device_name`, `test_parse_valid_device_name`, `test_parse_invalid`, `test_parse_display_address`, `test_parse_display_device_name`
+- **Types:** 2/5 matched (target 6)
+- **Missing types:** `Err`, `Error`, `Variants`
+- **Tests:** 0/7 matched
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rama-net/src/socket/interface.rs` vs expected `socket/interface.rs`
+- **Proposed provenance header:** `// port-lint: source socket/interface.rs` (current: `// port-lint: source rama-net/src/socket/interface.rs`)
+- **Lint issues:** 1
+
+### 6. address.socket_address
 
 - **Target:** `address.SocketAddress`
 - **Similarity:** 0.12
@@ -89,7 +104,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Err`, `Error`
 - **Tests:** 0/4 matched
 
-### 6. address.domain_address
+### 7. address.domain_address
 
 - **Target:** `address.DomainAddress`
 - **Similarity:** 0.25
@@ -101,7 +116,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Err`, `Error`
 - **Tests:** 0/4 matched
 
-### 7. stream.socket
+### 8. stream.socket
 
 - **Target:** `stream.Socket [ZERO]`
 - **Similarity:** 0.00
@@ -112,7 +127,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/4 matched (target 2)
 - **Missing types:** `ClientSocketInfo`, `Target`
 
-### 8. forwarded.version
+### 9. forwarded.version
 
 - **Target:** `forwarded.ForwardedVersion`
 - **Similarity:** 0.00
@@ -123,7 +138,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/3 matched (target 1)
 - **Missing types:** `VersionKind`, `Error`
 
-### 9. address.authority
+### 10. address.authority
 
 - **Target:** `address.Authority`
 - **Similarity:** 0.07
@@ -135,7 +150,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Err`, `Error`
 - **Tests:** 0/4 matched
 
-### 10. address.domain_trie
+### 11. address.domain_trie
 
 - **Target:** `address.DomainTrie`
 - **Similarity:** 0.03
@@ -147,7 +162,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 0/5 matched
 
-### 11. address.proxy
+### 12. address.proxy
 
 - **Target:** `address.Proxy`
 - **Similarity:** 0.03
@@ -159,7 +174,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Error`, `Err`
 - **Tests:** 0/12 matched
 
-### 12. proto
+### 13. proto
 
 - **Target:** `ramanet.Proto`
 - **Similarity:** 0.08
@@ -171,7 +186,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Protocol`, `ProtocolKind`, `Error`, `Err`
 - **Tests:** 3/4 matched
 
-### 13. forwarded.node
+### 14. forwarded.node
 
 - **Target:** `forwarded.Node`
 - **Similarity:** 0.14
@@ -183,7 +198,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Err`, `Error`
 - **Tests:** 0/3 matched
 
-### 14. forwarded.proto
+### 15. forwarded.proto
 
 - **Target:** `forwarded.ForwardedProtocol`
 - **Similarity:** 0.05
@@ -195,7 +210,21 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `ProtocolKind`, `Error`, `Err`
 - **Tests:** 0/2 matched
 
-### 15. matcher.private_ip
+### 16. client.conn
+
+- **Target:** `client.Conn [ZERO] [PROVENANCE-FALLBACK]`
+- **Similarity:** 0.00
+- **Dependents:** 0
+- **Priority Score:** 91010.0
+- **Functions:** 0/4 matched (target 0)
+- **Missing functions:** `fmt`, `connect`, `new`, `serve`
+- **Types:** 1/6 matched (target 1)
+- **Missing types:** `ConnectorService`, `Connection`, `Error`, `BoxedConnectorService`, `Output`
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rama-net/src/client/conn.rs` vs expected `client/conn.rs`
+- **Proposed provenance header:** `// port-lint: source client/conn.rs` (current: `// port-lint: source rama-net/src/client/conn.rs`)
+- **Lint issues:** 1
+
+### 17. matcher.private_ip
 
 - **Target:** `matcher.PrivateIp`
 - **Similarity:** 0.10
@@ -207,7 +236,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `FakeSocket`
 - **Tests:** 0/4 matched
 
-### 16. forwarded.obfuscated
+### 18. forwarded.obfuscated
 
 - **Target:** `forwarded.Obfuscated`
 - **Similarity:** 0.12
@@ -219,7 +248,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 0/6 matched
 
-### 17. asn
+### 19. asn
 
 - **Target:** `ramanet.Asn`
 - **Similarity:** 0.19
@@ -230,7 +259,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/3 matched (target 4)
 - **Missing types:** `AsnData`, `Error`
 
-### 18. matcher.loopback
+### 20. matcher.loopback
 
 - **Target:** `matcher.Loopback`
 - **Similarity:** 0.23
@@ -242,7 +271,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 0/4 matched
 
-### 19. matcher.socket
+### 21. matcher.socket
 
 - **Target:** `matcher.Socket`
 - **Similarity:** 0.25
@@ -254,7 +283,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `FakeSocket`
 - **Tests:** 0/4 matched
 
-### 20. matcher.port
+### 22. matcher.port
 
 - **Target:** `matcher.Port`
 - **Similarity:** 0.29
@@ -266,7 +295,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `FakeSocket`
 - **Tests:** 0/4 matched
 
-### 21. transport
+### 23. transport
 
 - **Target:** `ramanet.Transport`
 - **Similarity:** 0.25
@@ -277,7 +306,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/4 matched (target 3)
 - **Missing types:** `TryRefIntoTransportContext`, `Error`
 
-### 22. user.id
+### 24. user.id
 
 - **Target:** `user.UserId`
 - **Similarity:** 0.00
@@ -288,7 +317,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/1 matched (target 4)
 - **Missing types:** _none_
 
-### 23. mode
+### 25. mode
 
 - **Target:** `ramanet.Mode`
 - **Similarity:** 0.52
@@ -299,7 +328,35 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/2 matched (target 3)
 - **Missing types:** _none_
 
-### 24. address.ip
+### 26. client.mod
+
+- **Target:** `client.Mod [STUB] [PROVENANCE-FALLBACK]`
+- **Similarity:** 0.00
+- **Dependents:** 0
+- **Priority Score:** 110.0
+- **Functions:** 0/0 matched
+- **Missing functions:** _none_
+- **Types:** 1/1 matched
+- **Missing types:** _none_
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rama-net/src/client/mod.rs` vs expected `client/mod.rs`
+- **Proposed provenance header:** `// port-lint: source client/mod.rs` (current: `// port-lint: source rama-net/src/client/mod.rs`)
+- **Lint issues:** 1
+
+### 27. conn
+
+- **Target:** `ramanet.Conn [PROVENANCE-FALLBACK]`
+- **Similarity:** 0.10
+- **Dependents:** 0
+- **Priority Score:** 109.0
+- **Functions:** 1/1 matched
+- **Missing functions:** _none_
+- **Types:** 0/0 matched
+- **Missing types:** _none_
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rama-net/src/conn.rs` vs expected `conn.rs`
+- **Proposed provenance header:** `// port-lint: source conn.rs` (current: `// port-lint: source rama-net/src/conn.rs`)
+- **Lint issues:** 1
+
+### 28. address.ip
 
 - **Target:** `address.Ip`
 - **Similarity:** 1.00
@@ -309,6 +366,20 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** _none_
 - **Types:** 0/0 matched (target 1)
 - **Missing types:** _none_
+
+### 29. client.either_conn
+
+- **Target:** `client.EitherConn [PROVENANCE-FALLBACK]`
+- **Similarity:** 1.00
+- **Dependents:** 0
+- **Priority Score:** 0.0
+- **Functions:** 0/0 matched
+- **Missing functions:** _none_
+- **Types:** 0/0 matched (target 7)
+- **Missing types:** _none_
+- **Provenance warning:** port-lint provenance header matched only after fallback normalization: `rama-net/src/client/either_conn.rs` vs expected `client/either_conn.rs`
+- **Proposed provenance header:** `// port-lint: source client/either_conn.rs` (current: `// port-lint: source rama-net/src/client/either_conn.rs`)
+- **Lint issues:** 1
 
 ## Success Criteria
 
@@ -332,10 +403,10 @@ do not treat them as the next implementation target by default.
 |--------|--------|------|
 | `forwarded.mod` | `forwarded.Mod` | `forwarded/mod` |
 | `address.parse_utils` | `address.ParseUtils` | `address/parse_utils` |
+| `credentials.mod` | `user.Credentials` | `user/credentials/mod` |
 | `address.mod` | `address.Mod` | `address/mod` |
 | `stream.mod` | `stream.Mod` | `stream/mod` |
 | `user.mod` | `user.Mod` | `user/mod` |
-| `credentials.mod` | `user.Credentials` | `user/credentials/mod` |
 
 ### Missing
 
