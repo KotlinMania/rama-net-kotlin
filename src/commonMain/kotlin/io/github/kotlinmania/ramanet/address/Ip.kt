@@ -1,4 +1,4 @@
-// port-lint: source rama-net/src/address/ip.rs
+// port-lint: source address/ip.rs
 package io.github.kotlinmania.ramanet.address
 
 /**

@@ -1,4 +1,4 @@
-// port-lint: tests rama-net/src/forwarded/mod.rs
+// port-lint: tests forwarded/mod.rs
 package io.github.kotlinmania.ramanet.forwarded
 
 import io.github.kotlinmania.ramanet.NetProtocol
