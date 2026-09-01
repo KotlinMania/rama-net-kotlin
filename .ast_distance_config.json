@@ -33,6 +33,14 @@
     "user.credentials.mod",
     "address/parse_utils",
     "address/parse_utils.rs",
-    "address.parse_utils"
+    "address.parse_utils",
+    "rama-net/src/address/mod.rs",
+    "rama-net/src/forwarded/mod.rs",
+    "rama-net/src/stream/mod.rs",
+    "rama-net/src/user/mod.rs",
+    "rama-net/src/user/credentials/mod.rs",
+    "rama-net/src/address/parse_utils.rs",
+    "lib.rs",
+    "rama-net/src/lib.rs"
   ]
 }
