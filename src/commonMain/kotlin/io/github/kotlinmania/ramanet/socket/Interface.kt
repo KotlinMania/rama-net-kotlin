@@ -5,8 +5,6 @@ package io.github.kotlinmania.ramanet.socket
 
 import io.github.kotlinmania.ramanet.address.ParseUtils
 import io.github.kotlinmania.ramanet.address.SocketAddress
-import kotlin.experimental.ExperimentalObjCRefinement
-import kotlin.native.HiddenFromObjC
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -14,13 +12,17 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import kotlin.experimental.ExperimentalObjCRefinement
+import kotlin.native.HiddenFromObjC
 
 /**
  * Name of a (network) interface device name, e.g. `eth0`.
  */
 @HiddenFromObjC
 @Serializable(with = DeviceNameSerializer::class)
-public data class DeviceName(val value: String) : Comparable<DeviceName> {
+public data class DeviceName(
+    val value: String,
+) : Comparable<DeviceName> {
     init {
         require(isValid(value)) { "invalid (interface) device name: $value" }
     }
@@ -87,11 +89,15 @@ public object DeviceNameSerializer : KSerializer<DeviceName> {
 @HiddenFromObjC
 @Serializable(with = InterfaceSerializer::class)
 public sealed interface Interface {
-    public data class Address(val socketAddress: SocketAddress) : Interface {
+    public data class Address(
+        val socketAddress: SocketAddress,
+    ) : Interface {
         override fun toString(): String = socketAddress.toString()
     }
 
-    public data class Device(val deviceName: DeviceName) : Interface {
+    public data class Device(
+        val deviceName: DeviceName,
+    ) : Interface {
         override fun toString(): String = deviceName.toString()
     }
 

@@ -12,4 +12,6 @@ import kotlin.native.HiddenFromObjC
  * such as a TCPConnector instead of the requested address, unless a proxy is requested.
  */
 @HiddenFromObjC
-public data class ConnectorTarget(val hostWithPort: HostWithPort)
+public data class ConnectorTarget(
+    val hostWithPort: HostWithPort,
+)

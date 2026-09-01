@@ -12,8 +12,13 @@ import kotlin.native.HiddenFromObjC
  */
 @HiddenFromObjC
 public sealed interface EitherConn<out A, out B> {
-    public data class A<out T>(val value: T) : EitherConn<T, Nothing>
-    public data class B<out T>(val value: T) : EitherConn<Nothing, T>
+    public data class A<out T>(
+        val value: T,
+    ) : EitherConn<T, Nothing>
+
+    public data class B<out T>(
+        val value: T,
+    ) : EitherConn<Nothing, T>
 }
 
 /**
@@ -21,9 +26,17 @@ public sealed interface EitherConn<out A, out B> {
  */
 @HiddenFromObjC
 public sealed interface EitherConn3<out A, out B, out C> {
-    public data class A<out T>(val value: T) : EitherConn3<T, Nothing, Nothing>
-    public data class B<out T>(val value: T) : EitherConn3<Nothing, T, Nothing>
-    public data class C<out T>(val value: T) : EitherConn3<Nothing, Nothing, T>
+    public data class A<out T>(
+        val value: T,
+    ) : EitherConn3<T, Nothing, Nothing>
+
+    public data class B<out T>(
+        val value: T,
+    ) : EitherConn3<Nothing, T, Nothing>
+
+    public data class C<out T>(
+        val value: T,
+    ) : EitherConn3<Nothing, Nothing, T>
 }
 
 /**
@@ -32,8 +45,13 @@ public sealed interface EitherConn3<out A, out B, out C> {
  */
 @HiddenFromObjC
 public sealed interface EitherConnConnected<out A, out B> {
-    public data class A<out T>(val value: T) : EitherConnConnected<T, Nothing>
-    public data class B<out T>(val value: T) : EitherConnConnected<Nothing, T>
+    public data class A<out T>(
+        val value: T,
+    ) : EitherConnConnected<T, Nothing>
+
+    public data class B<out T>(
+        val value: T,
+    ) : EitherConnConnected<Nothing, T>
 }
 
 /**
@@ -41,7 +59,15 @@ public sealed interface EitherConnConnected<out A, out B> {
  */
 @HiddenFromObjC
 public sealed interface EitherConn3Connected<out A, out B, out C> {
-    public data class A<out T>(val value: T) : EitherConn3Connected<T, Nothing, Nothing>
-    public data class B<out T>(val value: T) : EitherConn3Connected<Nothing, T, Nothing>
-    public data class C<out T>(val value: T) : EitherConn3Connected<Nothing, Nothing, T>
+    public data class A<out T>(
+        val value: T,
+    ) : EitherConn3Connected<T, Nothing, Nothing>
+
+    public data class B<out T>(
+        val value: T,
+    ) : EitherConn3Connected<Nothing, T, Nothing>
+
+    public data class C<out T>(
+        val value: T,
+    ) : EitherConn3Connected<Nothing, Nothing, T>
 }
