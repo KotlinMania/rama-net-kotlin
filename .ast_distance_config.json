@@ -2,7 +2,7 @@
   "type": "port",
   "name": "rama-net-kotlin",
   "source": {
-    "path": "tmp",
+    "path": "tmp/rama-net/src",
     "lang": "rust"
   },
   "target": {

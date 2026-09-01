@@ -1,4 +1,4 @@
-// port-lint: source rama-net/src/user/id.rs
+// port-lint: source user/id.rs
 package io.github.kotlinmania.ramanet.user
 
 import kotlinx.serialization.Serializable
