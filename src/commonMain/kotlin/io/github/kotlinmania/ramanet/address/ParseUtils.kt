@@ -22,17 +22,12 @@ internal object ParseUtils {
      * Validates and normalizes an IP string (stripping brackets if IPv6).
      */
     fun tryToParseStrToIp(value: String): String? {
-        val clean =
-            if (value.startsWith('[') && value.endsWith(']')) {
-                value.substring(1, value.length - 1)
-            } else {
-                value
-            }
-
-        return if (isValidIpv4(clean) || isValidIpv6(clean)) {
-            clean
+        if (value.startsWith('[') || value.endsWith(']')) {
+            if (!value.startsWith('[') || !value.endsWith(']')) return null
+            val inner = value.substring(1, value.length - 1)
+            return if (isValidIpv6(inner)) inner else null
         } else {
-            null
+            return if (isValidIpv4(value) || isValidIpv6(value)) value else null
         }
     }
 
