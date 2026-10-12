@@ -1,4 +1,4 @@
-// port-lint: source rama-net/src/socket/interface.rs
+// port-lint: source socket/interface.rs
 @file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
 
 package io.github.kotlinmania.ramanet.socket

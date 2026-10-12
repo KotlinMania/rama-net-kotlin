@@ -36,27 +36,51 @@ data class HostWithPort(
         return port.compareTo(other.port)
     }
 
+    fun withHost(host: Host): HostWithPort = copy(host = host)
+
+    fun withPort(port: UShort): HostWithPort = copy(port = port)
+
     companion object {
-        fun localIpv4WithPort(port: UShort): HostWithPort = HostWithPort(Host.localIpv4(), port)
+        fun new(host: Host, port: UShort): HostWithPort = HostWithPort(host, port)
 
-        fun localIpv6WithPort(port: UShort): HostWithPort = HostWithPort(Host.localIpv6(), port)
+        fun localIpv4(port: UShort): HostWithPort = HostWithPort(Host.localIpv4(), port)
 
-        fun exampleWithPort(port: UShort): HostWithPort = HostWithPort(Host.example(), port)
+        fun localIpv6(port: UShort): HostWithPort = HostWithPort(Host.localIpv6(), port)
 
-        fun exampleHttp(): HostWithPort = HostWithPort(Host.example(), NetProtocol.HTTP_DEFAULT_PORT)
+        fun defaultIpv4(port: UShort): HostWithPort = HostWithPort(Host.defaultIpv4(), port)
 
-        fun exampleHttps(): HostWithPort = HostWithPort(Host.example(), NetProtocol.HTTPS_DEFAULT_PORT)
+        fun defaultIpv6(port: UShort): HostWithPort = HostWithPort(Host.defaultIpv6(), port)
+
+        fun broadcastIpv4(port: UShort): HostWithPort = HostWithPort(Host.broadcastIpv4(), port)
+
+        fun exampleDomainHttp(): HostWithPort = exampleDomainWithPort(NetProtocol.HTTP_DEFAULT_PORT)
+
+        fun exampleDomainHttps(): HostWithPort = exampleDomainWithPort(NetProtocol.HTTPS_DEFAULT_PORT)
+
+        fun exampleDomainWithPort(port: UShort): HostWithPort = HostWithPort(Host.example(), port)
+
+        fun localhostDomainHttp(): HostWithPort = localhostDomainWithPort(NetProtocol.HTTP_DEFAULT_PORT)
+
+        fun localhostDomainHttps(): HostWithPort = localhostDomainWithPort(NetProtocol.HTTPS_DEFAULT_PORT)
+
+        fun localhostDomainWithPort(port: UShort): HostWithPort = HostWithPort(Host.localhost(), port)
+
+        fun localIpv4WithPort(port: UShort): HostWithPort = localIpv4(port)
+
+        fun localIpv6WithPort(port: UShort): HostWithPort = localIpv6(port)
+
+        fun exampleWithPort(port: UShort): HostWithPort = exampleDomainWithPort(port)
+
+        fun exampleHttp(): HostWithPort = exampleDomainHttp()
+
+        fun exampleHttps(): HostWithPort = exampleDomainHttps()
 
         fun parse(s: String): HostWithPort {
             val (rawHost, port) = ParseUtils.splitPortFromStr(s)
-            val isBracketed = rawHost.startsWith('[') && rawHost.endsWith(']')
-            val cleanHost = if (isBracketed) rawHost.substring(1, rawHost.length - 1) else rawHost
-
-            if (ParseUtils.isValidIpv6(cleanHost) && !isBracketed) {
+            val host = Host.parse(rawHost)
+            if (host is Host.Address && ParseUtils.isValidIpv6(host.ip) && !s.startsWith('[')) {
                 throw IllegalArgumentException("missing brackets for IPv6 address with port: $s")
             }
-
-            val host = Host.parse(cleanHost)
             return HostWithPort(host, port)
         }
     }

@@ -47,6 +47,20 @@ sealed class Host : Comparable<Host> {
 
     open fun asIp(): String? = null
 
+    fun isDomain(): Boolean = isName()
+
+    fun intoDomain(): Domain? = asDomain()
+
+    fun isIp(): Boolean = isAddress()
+
+    fun intoIp(): String? = asIp()
+
+    fun isIpv4(): Boolean = isAddress() && ParseUtils.isValidIpv4(asIp() ?: "")
+
+    fun isIpv6(): Boolean = isAddress() && ParseUtils.isValidIpv6(asIp() ?: "")
+
+    fun toStr(): String = toString()
+
     override fun compareTo(other: Host): Int = toString().compareTo(other.toString(), ignoreCase = true)
 
     companion object {
@@ -57,6 +71,10 @@ sealed class Host : Comparable<Host> {
         fun defaultIpv4(): Host = Address(IpConstants.IPV4_UNSPECIFIED)
 
         fun defaultIpv6(): Host = Address(IpConstants.IPV6_UNSPECIFIED)
+
+        fun broadcastIpv4(): Host = Address(IpConstants.IPV4_BROADCAST)
+
+        fun localhost(): Host = Name(Domain.tldLocalhost())
 
         fun example(): Host = Name(Domain.example())
 

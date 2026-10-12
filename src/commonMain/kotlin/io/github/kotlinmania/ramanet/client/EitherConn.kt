@@ -1,4 +1,4 @@
-// port-lint: source rama-net/src/client/either_conn.rs
+// port-lint: source client/either_conn.rs
 @file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
 
 package io.github.kotlinmania.ramanet.client
