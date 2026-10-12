@@ -1,4 +1,4 @@
-// port-lint: source rama-net/src/client/conn.rs
+// port-lint: source client/conn.rs
 @file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
 
 package io.github.kotlinmania.ramanet.client
@@ -25,4 +25,16 @@ public fun interface ConnectorService<Input, Connection, Error> {
      * Establish a connection, which often involves some kind of handshake or connection revival.
      */
     public suspend fun connect(input: Input): Result<EstablishedClientConnection<Connection, Input>>
+}
+
+/**
+ * A [ConnectorService] which only job is to box the created service by the inner connector.
+ */
+@HiddenFromObjC
+public data class BoxedConnectorService<S>(
+    val connector: S,
+) {
+    companion object {
+        fun <S> new(connector: S): BoxedConnectorService<S> = BoxedConnectorService(connector)
+    }
 }

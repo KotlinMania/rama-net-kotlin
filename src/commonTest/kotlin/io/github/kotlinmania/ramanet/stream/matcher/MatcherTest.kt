@@ -102,4 +102,22 @@ class MatcherTest {
         val matching = FakeSocket(null, SocketAddress("127.0.0.1", 8080u))
         assertTrue(matcher.matches(matching))
     }
+
+    @Test
+    fun testSocketMatcherCombinations() {
+        val s1 = FakeSocket(null, SocketAddress("127.0.0.1", 8080u))
+        val s2 = FakeSocket(null, SocketAddress("192.168.1.1", 9090u))
+
+        val matcher = SocketMatcher.loopback().andPort(8080u)
+        assertTrue(matcher.matches(s1))
+        assertFalse(matcher.matches(s2))
+
+        val orMatcher = SocketMatcher.loopback().orPort(9090u)
+        assertTrue(orMatcher.matches(s1))
+        assertTrue(orMatcher.matches(s2))
+
+        val negated = matcher.negate()
+        assertFalse(negated.matches(s1))
+        assertTrue(negated.matches(s2))
+    }
 }

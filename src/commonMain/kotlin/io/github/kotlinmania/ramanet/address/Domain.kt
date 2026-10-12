@@ -127,6 +127,14 @@ class Domain private constructor(
         return rest.isNotEmpty() && !rest.contains('.')
     }
 
+    fun intoHost(): Host = Host.Name(this)
+
+    fun asStr(): String = value
+
+    fun intoInner(): String = value
+
+    fun len(): Int = value.length
+
     fun asString(): String = value
 
     override fun toString(): String = value

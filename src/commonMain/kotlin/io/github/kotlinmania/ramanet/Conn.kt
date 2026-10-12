@@ -1,4 +1,4 @@
-// port-lint: source rama-net/src/conn.rs
+// port-lint: source conn.rs
 @file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
 
 package io.github.kotlinmania.ramanet
