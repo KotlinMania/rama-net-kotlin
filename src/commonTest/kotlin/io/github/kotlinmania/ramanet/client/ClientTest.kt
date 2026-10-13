@@ -3,6 +3,7 @@ package io.github.kotlinmania.ramanet.client
 import io.github.kotlinmania.ramanet.address.HostWithPort
 import kotlin.test.Test
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 class ClientTest {
     @Test
@@ -18,6 +19,7 @@ class ClientTest {
             ConnectorService<String, Int, Throwable> { input ->
                 Result.success(EstablishedClientConnection(input, 12345))
             }
+        assertNotNull(connector)
         // Verify interface contract definition
         val established = EstablishedClientConnection("test-input", 12345)
         assertEquals("test-input", established.input)
