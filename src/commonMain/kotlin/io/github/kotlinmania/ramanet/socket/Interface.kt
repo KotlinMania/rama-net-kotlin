@@ -18,10 +18,9 @@ import kotlin.native.HiddenFromObjC
 /**
  * Name of a (network) interface device name, e.g. `eth0`.
  */
-@HiddenFromObjC
 @Serializable(with = DeviceNameSerializer::class)
 public data class DeviceName(
-    val value: String,
+    public val value: String,
 ) : Comparable<DeviceName> {
     init {
         require(isValid(value)) { "invalid (interface) device name: $value" }

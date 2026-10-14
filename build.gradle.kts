@@ -119,6 +119,9 @@ configurations.configureEach {
             ),
         )
     }
+    if (name.contains("android", ignoreCase = true)) {
+        exclude(group = "org.jetbrains", module = "annotations")
+    }
 }
 
 // Opt-ins shared across Kotlin targets.
