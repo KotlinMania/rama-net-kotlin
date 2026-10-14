@@ -21,6 +21,9 @@ class InterfaceTest {
             is Interface.Device -> {
                 throw AssertionError("unexpected device name '${bindAddress.deviceName}': parsing '$s'")
             }
+            is Interface.Socket -> {
+                throw AssertionError("unexpected socket options '${bindAddress.socketOptions}': parsing '$s'")
+            }
         }
     }
 
@@ -31,6 +34,9 @@ class InterfaceTest {
             }
             is Interface.Device -> {
                 assertEquals(s, bindAddress.deviceName.asStr(), "parsing: $s")
+            }
+            is Interface.Socket -> {
+                throw AssertionError("unexpected socket options '${bindAddress.socketOptions}': parsing '$s'")
             }
         }
     }
