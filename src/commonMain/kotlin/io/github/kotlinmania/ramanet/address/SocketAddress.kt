@@ -1,6 +1,9 @@
 // port-lint: source address/socket_address.rs
 package io.github.kotlinmania.ramanet.address
 
+import io.github.kotlinmania.socket2.SockAddr
+import io.github.kotlinmania.socket2.SocketAddr
+import io.github.kotlinmania.socket2.toSockAddr
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -22,7 +25,18 @@ data class SocketAddress(
         require(valid != null) { "invalid IP address: $ip" }
     }
 
+    fun isIpv4(): Boolean = !isIpv6()
+
     fun isIpv6(): Boolean = ParseUtils.isValidIpv6(ip)
+
+    fun intoStd(): SocketAddr =
+        if (isIpv6()) {
+            SocketAddr.V6(ip, port.toInt())
+        } else {
+            SocketAddr.V4(ip, port.toInt())
+        }
+
+    fun toSockAddr(): SockAddr = intoStd().toSockAddr()
 
     override fun toString(): String =
         if (isIpv6()) {
@@ -38,6 +52,12 @@ data class SocketAddress(
     }
 
     companion object {
+        fun fromStd(addr: SocketAddr): SocketAddress =
+            when (addr) {
+                is SocketAddr.V4 -> SocketAddress(addr.address, addr.port.toUShort())
+                is SocketAddr.V6 -> SocketAddress(addr.address, addr.port.toUShort())
+            }
+
         fun localIpv4(port: UShort = 8080u): SocketAddress = SocketAddress(IpConstants.IPV4_LOCALHOST, port)
 
         fun localIpv6(port: UShort = 8080u): SocketAddress = SocketAddress(IpConstants.IPV6_LOCALHOST, port)

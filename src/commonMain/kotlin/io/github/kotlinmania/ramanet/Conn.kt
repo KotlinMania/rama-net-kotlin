@@ -1,18 +1,12 @@
 // port-lint: source conn.rs
-@file:OptIn(kotlin.experimental.ExperimentalObjCRefinement::class)
-
 package io.github.kotlinmania.ramanet
-
-import kotlin.experimental.ExperimentalObjCRefinement
-import kotlin.native.HiddenFromObjC
 
 /**
  * Check if the error is a connection error, in which case the error can be ignored.
  */
-@HiddenFromObjC
 public fun isConnectionError(e: Throwable): Boolean {
-    val message = e.message?.lowercase() ?: ""
-    val className = e::class.simpleName?.lowercase() ?: ""
+    val message = e.message?.lowercase().orEmpty()
+    val className = e::class.simpleName?.lowercase().orEmpty()
     return className.contains("connectionrefused") ||
         className.contains("connectionreset") ||
         className.contains("connectionaborted") ||

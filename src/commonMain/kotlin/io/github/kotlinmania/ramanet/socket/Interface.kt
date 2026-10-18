@@ -18,10 +18,9 @@ import kotlin.native.HiddenFromObjC
 /**
  * Name of a (network) interface device name, e.g. `eth0`.
  */
-@HiddenFromObjC
 @Serializable(with = DeviceNameSerializer::class)
 public data class DeviceName(
-    val value: String,
+    public val value: String,
 ) : Comparable<DeviceName> {
     init {
         require(isValid(value)) { "invalid (interface) device name: $value" }
@@ -101,10 +100,18 @@ public sealed interface Interface {
         override fun toString(): String = deviceName.toString()
     }
 
+    public data class Socket(
+        val socketOptions: SocketOptions,
+    ) : Interface {
+        override fun toString(): String = socketOptions.toString()
+    }
+
     public companion object {
         public fun newAddress(addr: SocketAddress): Interface = Address(addr)
 
         public fun newDevice(name: String): Interface = Device(DeviceName(name))
+
+        public fun newSocket(opts: SocketOptions): Interface = Socket(opts)
 
         public fun localIpv4(port: UShort = 8080u): Interface = Address(SocketAddress.localIpv4(port))
 

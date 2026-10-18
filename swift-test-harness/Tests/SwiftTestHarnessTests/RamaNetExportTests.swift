@@ -30,4 +30,15 @@ struct RamaNetExportTests {
         let https = forwarded.ForwardedProtocol.Https
         #expect(https.description == "Https")
     }
+
+    @Test("HostWithPort, RequestContext, SocketOptions, and Ja4 export works")
+    func netTypesExport() {
+        let hwp = address.HostWithPort.Companion.shared.exampleDomainHttp()
+        #expect(hwp.toString() == "example.com:80")
+        let opts = socket.SocketOptions.Companion.shared.defaultTcpV6()
+        #expect(opts.domain == socket.Domain.IPv6)
+        let hash = fingerprint.Ja4.shared.hashString(input: "1301,1302")
+        #expect(hash.count == 12)
+    }
 }
+
