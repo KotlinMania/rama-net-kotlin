@@ -1,7 +1,7 @@
 // port-lint: source address/authority.rs
 package io.github.kotlinmania.ramanet.address
 
-import io.github.kotlinmania.ramanet.user.Basic
+import io.github.kotlinmania.ramanet.user.credentials.Basic
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.PrimitiveKind

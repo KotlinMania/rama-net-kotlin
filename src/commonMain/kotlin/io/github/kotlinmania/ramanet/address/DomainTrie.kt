@@ -43,8 +43,8 @@ public class DomainTrie<T> {
 
     public fun isEmpty(): Boolean = count == 0
 
-    private fun reverseLabels(domain: Domain): List<String> {
-        val str = domain.asString().trim('.').lowercase()
+    private fun reverseLabels(domainStr: String): List<String> {
+        val str = domainStr.trim('.').lowercase()
         return str.split('.').reversed()
     }
 
@@ -52,7 +52,11 @@ public class DomainTrie<T> {
      * Inserts the given domain paired with the value [T].
      */
     public fun insert(domain: Domain, value: T) {
-        val labels = reverseLabels(domain)
+        insert(domain.asStr(), value)
+    }
+
+    public fun insert(domainStr: String, value: T) {
+        val labels = reverseLabels(domainStr)
         var curr = root
         for (label in labels) {
             curr = curr.children.getOrPut(label) { Node() }
@@ -71,16 +75,49 @@ public class DomainTrie<T> {
         return this
     }
 
+    public fun insertDomain(domainStr: String, value: T): DomainTrie<T> {
+        insert(domainStr, value)
+        return this
+    }
+
+    public fun insertDomain(domainRef: AsDomainRef, value: T): DomainTrie<T> =
+        insertDomain(domainRef.domainAsStr(), value)
+
     /**
      * Inserts the given domain paired with the value [T] and returns `this`.
      */
     public fun withInsertDomain(domain: Domain, value: T): DomainTrie<T> = insertDomain(domain, value)
 
+    public fun withInsertDomain(domainStr: String, value: T): DomainTrie<T> = insertDomain(domainStr, value)
+
+    public fun withInsertDomain(domainRef: AsDomainRef, value: T): DomainTrie<T> = insertDomain(domainRef, value)
+
+    public fun withInsertDomainIter(domains: Iterable<String>, value: T): DomainTrie<T> {
+        insertDomainIter(domains, value)
+        return this
+    }
+
+    public fun insertDomainIter(domains: Iterable<String>, value: T): DomainTrie<T> {
+        for (domain in domains) {
+            insertDomain(domain, value)
+        }
+        return this
+    }
+
+    public fun extend(iter: Iterable<Pair<String, T>>): DomainTrie<T> {
+        for ((domain, value) in iter) {
+            insertDomain(domain, value)
+        }
+        return this
+    }
+
     /**
      * Retrieves the exact match for the domain if present.
      */
-    public fun get(domain: Domain): T? {
-        val labels = reverseLabels(domain)
+    public fun get(domain: Domain): T? = get(domain.asStr())
+
+    public fun get(domainStr: String): T? {
+        val labels = reverseLabels(domainStr)
         var curr = root
         for (label in labels) {
             curr = curr.children[label] ?: return null
@@ -93,21 +130,37 @@ public class DomainTrie<T> {
      */
     public fun matchExact(domain: Domain): T? = get(domain)
 
+    public fun matchExact(domainStr: String): T? = get(domainStr)
+
+    public fun matchExact(domainRef: AsDomainRef): T? = get(domainRef.domainAsStr())
+
     /**
      * Returns true if the input domain is an exact domain stored in this [DomainTrie].
      */
     public fun isMatchExact(domain: Domain): Boolean = get(domain) != null
+
+    public fun isMatchExact(domainStr: String): Boolean = get(domainStr) != null
+
+    public fun isMatchExact(domainRef: AsDomainRef): Boolean = get(domainRef.domainAsStr()) != null
 
     /**
      * Returns true if the input domain is a subdomain of at least one node in this [DomainTrie].
      */
     public fun isMatchParent(domain: Domain): Boolean = matchParent(domain) != null
 
+    public fun isMatchParent(domainStr: String): Boolean = matchParent(domainStr) != null
+
+    public fun isMatchParent(domainRef: AsDomainRef): Boolean = matchParent(domainRef.domainAsStr()) != null
+
     /**
      * Matches the closest parent (or exact match) of the given domain in the trie.
      */
-    public fun matchParent(domain: Domain): DomainParentMatch<T>? {
-        val labels = reverseLabels(domain)
+    public fun matchParent(domain: Domain): DomainParentMatch<T>? = matchParent(domain.asStr())
+
+    public fun matchParent(domainRef: AsDomainRef): DomainParentMatch<T>? = matchParent(domainRef.domainAsStr())
+
+    public fun matchParent(domainStr: String): DomainParentMatch<T>? {
+        val labels = reverseLabels(domainStr)
         var curr = root
         var lastMatch: T? = null
         var lastMatchDepth = 0
@@ -130,6 +183,22 @@ public class DomainTrie<T> {
         }
     }
 
+    public fun iter(): List<Pair<Domain, T>> {
+        val result = mutableListOf<Pair<Domain, T>>()
+        fun collect(node: Node<T>, path: List<String>) {
+            val v = node.value
+            if (v != null) {
+                val originalDomainStr = path.reversed().joinToString(".")
+                result.add(Domain.fromMaybeBorrowedUnchecked(originalDomainStr) to v)
+            }
+            for ((label, child) in node.children) {
+                collect(child, path + label)
+            }
+        }
+        collect(root, emptyList())
+        return result
+    }
+
     public fun clear() {
         root.children.clear()
         root.value = null
@@ -138,5 +207,13 @@ public class DomainTrie<T> {
 
     public companion object {
         public fun <T> new(): DomainTrie<T> = DomainTrie()
+
+        public fun <T> default(): DomainTrie<T> = DomainTrie()
+
+        public fun <T> fromIter(iter: Iterable<Pair<String, T>>): DomainTrie<T> {
+            val trie = DomainTrie<T>()
+            trie.extend(iter)
+            return trie
+        }
     }
 }

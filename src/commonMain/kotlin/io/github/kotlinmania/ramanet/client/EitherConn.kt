@@ -3,13 +3,6 @@
 
 package io.github.kotlinmania.ramanet.client
 
-import io.github.kotlinmania.ramacore.Extensions
-import io.github.kotlinmania.ramacore.ExtensionsRef
-import io.github.kotlinmania.tokio.io.AsyncRead
-import io.github.kotlinmania.tokio.io.AsyncWrite
-import io.github.kotlinmania.tokio.io.Context
-import io.github.kotlinmania.tokio.io.Poll
-import io.github.kotlinmania.tokio.io.ReadBuf
 import kotlin.experimental.ExperimentalObjCRefinement
 import kotlin.native.HiddenFromObjC
 
@@ -61,41 +54,6 @@ public sealed interface EitherConnConnected<out A, out B> {
     ) : EitherConnConnected<Nothing, T>
 }
 
-/**
- * Retrieve [Extensions] from an [EitherConnConnected] whose branches implement [ExtensionsRef].
- */
-@HiddenFromObjC
-public fun <A : ExtensionsRef, B : ExtensionsRef> EitherConnConnected<A, B>.extensions(): Extensions =
-    when (this) {
-        is EitherConnConnected.A -> value.extensions()
-        is EitherConnConnected.B -> value.extensions()
-    }
-
-/**
- * Poll read on an [EitherConnConnected] whose branches implement [AsyncRead].
- */
-@HiddenFromObjC
-public fun <A : AsyncRead, B : AsyncRead> EitherConnConnected<A, B>.pollRead(
-    cx: Context,
-    buf: ReadBuf,
-): Poll<Result<Unit>> =
-    when (this) {
-        is EitherConnConnected.A -> value.pollRead(cx, buf)
-        is EitherConnConnected.B -> value.pollRead(cx, buf)
-    }
-
-/**
- * Poll write on an [EitherConnConnected] whose branches implement [AsyncWrite].
- */
-@HiddenFromObjC
-public fun <A : AsyncWrite, B : AsyncWrite> EitherConnConnected<A, B>.pollWrite(
-    cx: Context,
-    buf: UByteArray,
-): Poll<Result<Int>> =
-    when (this) {
-        is EitherConnConnected.A -> value.pollWrite(cx, buf)
-        is EitherConnConnected.B -> value.pollWrite(cx, buf)
-    }
 
 /**
  * `EitherConn3Connected` for 3 branches.

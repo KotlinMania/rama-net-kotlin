@@ -1,6 +1,7 @@
-// port-lint: tests user/mod.rs
 package io.github.kotlinmania.ramanet.user
 
+import io.github.kotlinmania.ramanet.user.credentials.Basic
+import io.github.kotlinmania.ramanet.user.credentials.Bearer
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith

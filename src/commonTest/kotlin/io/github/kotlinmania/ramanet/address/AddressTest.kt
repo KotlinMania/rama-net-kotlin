@@ -1,9 +1,8 @@
-// port-lint: tests address/mod.rs
 package io.github.kotlinmania.ramanet.address
 
 import io.github.kotlinmania.ramanet.NetProtocol
-import io.github.kotlinmania.ramanet.user.Basic
-import io.github.kotlinmania.ramanet.user.ProxyCredential
+import io.github.kotlinmania.ramanet.user.credentials.Basic
+import io.github.kotlinmania.ramanet.user.credentials.ProxyCredential
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith

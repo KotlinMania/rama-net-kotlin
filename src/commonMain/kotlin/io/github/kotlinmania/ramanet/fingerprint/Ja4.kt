@@ -1,4 +1,3 @@
-// port-lint: source fingerprint/ja4/mod.rs
 package io.github.kotlinmania.ramanet.fingerprint
 
 import io.github.kotlinmania.itertools.intersperse
