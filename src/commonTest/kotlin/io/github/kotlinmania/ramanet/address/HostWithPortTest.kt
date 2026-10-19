@@ -6,7 +6,7 @@ import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 
 class HostWithPortTest {
-    private fun assertParsed(
+    private fun assertEq(
         s: String,
         hostWithPort: HostWithPort,
         expectedHost: String,
@@ -29,7 +29,7 @@ class HostWithPortTest {
         for ((s, expected) in validCases) {
             val (expectedHost, expectedPort) = expected
             val parsed = HostWithPort.parse(s)
-            assertParsed(s, parsed, expectedHost, expectedPort)
+            assertEq(s, parsed, expectedHost, expectedPort)
         }
     }
 

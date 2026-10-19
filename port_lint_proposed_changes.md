@@ -1,6 +1,6 @@
 # port-lint Proposed Changes
 
-**Generated:** 2026-10-11
+**Generated:** 2026-10-19
 **Source:** tmp/rama-net/src
 **Target:** src/commonMain/kotlin
 

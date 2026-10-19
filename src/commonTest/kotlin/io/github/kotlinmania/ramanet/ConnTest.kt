@@ -19,7 +19,6 @@ import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFalse
 import kotlin.test.assertTrue
-import io.github.kotlinmania.ramanet.conn.isConnectionError as connIsConnectionError
 import io.github.kotlinmania.ramanet.socket.Domain as SocketOptDomain
 
 class ConnTest {
@@ -30,7 +29,6 @@ class ConnTest {
         assertTrue(isConnectionError(Exception("Broken pipe")))
         assertTrue(isConnectionError(Exception("Unexpected EOF")))
         assertTrue(isConnectionError(Exception("Socket closed")))
-        assertTrue(connIsConnectionError(Exception("Socket closed")))
 
         assertFalse(isConnectionError(IllegalArgumentException("invalid input format")))
         assertFalse(isConnectionError(NullPointerException("null value encountered")))

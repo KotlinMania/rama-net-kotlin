@@ -40,74 +40,140 @@ data class HostWithOptPort(
         return (port ?: 0u).compareTo(other.port ?: 0u)
     }
 
+    fun host(host: Host): HostWithOptPort = withHost(host)
+
+    fun port(port: UShort?): HostWithOptPort = withPort(port)
+
+    fun withHost(host: Host): HostWithOptPort = copy(host = host)
+
+    fun withPort(port: UShort?): HostWithOptPort = copy(port = port)
+
+    fun fmt(): String = toString()
+
     companion object {
-        fun localIpv4(): HostWithOptPort = HostWithOptPort(Host.localIpv4())
+        fun new(host: Host): HostWithOptPort = HostWithOptPort(host, null)
 
-        fun localIpv4WithPort(port: UShort): HostWithOptPort = HostWithOptPort(Host.localIpv4(), port)
+        fun newWithPort(host: Host, port: UShort): HostWithOptPort = HostWithOptPort(host, port)
 
-        fun localIpv6(): HostWithOptPort = HostWithOptPort(Host.localIpv6())
+        fun localIpv4(): HostWithOptPort = new(Host.localIpv4())
 
-        fun localIpv6WithPort(port: UShort): HostWithOptPort = HostWithOptPort(Host.localIpv6(), port)
+        fun localIpv4WithPort(port: UShort): HostWithOptPort = newWithPort(Host.localIpv4(), port)
 
-        fun example(): HostWithOptPort = HostWithOptPort(Host.example())
+        fun localIpv6(): HostWithOptPort = new(Host.localIpv6())
 
-        fun exampleWithPort(port: UShort): HostWithOptPort = HostWithOptPort(Host.example(), port)
+        fun localIpv6WithPort(port: UShort): HostWithOptPort = newWithPort(Host.localIpv6(), port)
 
-        fun exampleHttp(): HostWithOptPort = HostWithOptPort(Host.example(), NetProtocol.HTTP_DEFAULT_PORT)
+        fun defaultIpv4(): HostWithOptPort = new(Host.defaultIpv4())
 
-        fun exampleHttps(): HostWithOptPort = HostWithOptPort(Host.example(), NetProtocol.HTTPS_DEFAULT_PORT)
+        fun defaultIpv4WithPort(port: UShort): HostWithOptPort = newWithPort(Host.defaultIpv4(), port)
+
+        fun defaultIpv6(): HostWithOptPort = new(Host.defaultIpv6())
+
+        fun defaultIpv6WithPort(port: UShort): HostWithOptPort = newWithPort(Host.defaultIpv6(), port)
+
+        fun broadcastIpv4(): HostWithOptPort = new(Host.broadcastIpv4())
+
+        fun broadcastIpv4WithPort(port: UShort): HostWithOptPort = newWithPort(Host.broadcastIpv4(), port)
+
+        fun exampleDomain(): HostWithOptPort = HostWithOptPort(Host.example(), null)
+
+        fun exampleDomainHttp(): HostWithOptPort = exampleDomainWithPort(NetProtocol.HTTP_DEFAULT_PORT)
+
+        fun exampleDomainHttps(): HostWithOptPort = exampleDomainWithPort(NetProtocol.HTTPS_DEFAULT_PORT)
+
+        fun exampleDomainWithPort(port: UShort): HostWithOptPort = HostWithOptPort(Host.example(), port)
+
+        fun localhostDomain(): HostWithOptPort = HostWithOptPort(Host.localhost(), null)
+
+        fun localhostDomainHttp(): HostWithOptPort = localhostDomainWithPort(NetProtocol.HTTP_DEFAULT_PORT)
+
+        fun localhostDomainHttps(): HostWithOptPort = localhostDomainWithPort(NetProtocol.HTTPS_DEFAULT_PORT)
+
+        fun localhostDomainWithPort(port: UShort): HostWithOptPort = HostWithOptPort(Host.localhost(), port)
+
+        fun example(): HostWithOptPort = exampleDomain()
+
+        fun exampleWithPort(port: UShort): HostWithOptPort = exampleDomainWithPort(port)
+
+        fun exampleHttp(): HostWithOptPort = exampleDomainHttp()
+
+        fun exampleHttps(): HostWithOptPort = exampleDomainHttps()
+
+        fun from(domain: Domain, port: UShort): HostWithOptPort = HostWithOptPort(Host.Name(domain), port)
+
+        fun from(ip: String, port: UShort): HostWithOptPort = HostWithOptPort(Host.Address(ip), port)
+
+        fun from(host: Host): HostWithOptPort = new(host)
+
+        fun from(host: Host, port: UShort): HostWithOptPort = newWithPort(host, port)
+
+        fun from(hostWithPort: HostWithPort): HostWithOptPort = newWithPort(hostWithPort.host, hostWithPort.port)
+
+        fun from(socketAddress: SocketAddress): HostWithOptPort =
+            newWithPort(Host.Address(socketAddress.ip), socketAddress.port)
+
+        fun from(domainAddress: DomainAddress): HostWithOptPort =
+            newWithPort(Host.Name(domainAddress.domain), domainAddress.port)
+
+        fun fmt(hwop: HostWithOptPort): String = hwop.toString()
+
+        fun fromStr(s: String): HostWithOptPort = parse(s)
+
+        fun tryFrom(s: String): HostWithOptPort = parse(s)
+
+        fun tryFrom(bytes: ByteArray): HostWithOptPort = parse(bytes.decodeToString())
+
+        fun tryFromMaybeBorrowedStr(s: String): HostWithOptPort = parse(s)
 
         fun parse(s: String): HostWithOptPort {
             if (s.isEmpty()) {
-                throw IllegalArgumentException("cannot parse empty string to HostWithOptPort")
+                throw IllegalArgumentException("empty string is invalid host (with opt port)")
             }
 
-            // Case 1: Bracketed IPv6 e.g. [::1] or [::1]:8080
-            if (s.startsWith('[')) {
-                val closeBracket = s.indexOf(']')
-                if (closeBracket < 0) {
-                    throw IllegalArgumentException("unclosed bracket in IPv6 address: $s")
-                }
-                val ip = s.substring(1, closeBracket)
-                if (!ParseUtils.isValidIpv6(ip)) {
-                    throw IllegalArgumentException("invalid IPv6 in brackets: $ip")
-                }
-                val remaining = s.substring(closeBracket + 1)
-                val port =
-                    if (remaining.isNotEmpty()) {
-                        if (!remaining.startsWith(':')) {
-                            throw IllegalArgumentException("expected ':' after bracketed IPv6: $s")
+            val lastColon = s.lastIndexOf(':')
+            if (lastColon >= 0) {
+                val firstPart = s.substring(0, lastColon)
+                if (firstPart.contains(':')) {
+                    // ipv6
+                    if (firstPart.startsWith('[') && firstPart.endsWith(']')) {
+                        val value = firstPart.substring(1, firstPart.length - 1)
+                        if (!ParseUtils.isValidIpv6(value)) {
+                            throw IllegalArgumentException("invalid ipv6 with brackets: $value")
                         }
-                        remaining.substring(1).toUShortOrNull()
-                            ?: throw IllegalArgumentException("invalid port in address: $s")
+                        val portStr = s.substring(lastColon + 1)
+                        val port =
+                            portStr.toUShortOrNull()
+                                ?: throw IllegalArgumentException("parse host-with-opt-port port string as u16: $portStr")
+                        return HostWithOptPort(Host.Address(value), port)
                     } else {
-                        null
+                        if (!ParseUtils.isValidIpv6(s)) {
+                            throw IllegalArgumentException("invalid ipv6 without trailing port: $s")
+                        }
+                        return HostWithOptPort(Host.Address(s), null)
                     }
-                return HostWithOptPort(Host.Address(ip), port)
-            }
+                } else {
+                    val portStr = s.substring(lastColon + 1)
+                    val port =
+                        portStr.toUShortOrNull()
+                            ?: throw IllegalArgumentException("parse host-with-opt-port port string as u16: $portStr")
 
-            // Case 2: Unbracketed IPv6 without port e.g. 2001:db8::1
-            if (s.contains(':') && s.indexOf(':') != s.lastIndexOf(':')) {
-                if (ParseUtils.isValidIpv6(s)) {
-                    return HostWithOptPort(Host.Address(s), null)
+                    val host =
+                        if (ParseUtils.isValidIpv4(firstPart)) {
+                            Host.Address(firstPart)
+                        } else {
+                            Host.Name(Domain.parse(firstPart))
+                        }
+                    return HostWithOptPort(host, port)
                 }
+            } else {
+                val host =
+                    if (ParseUtils.isValidIpv4(s) || ParseUtils.isValidIpv6(s)) {
+                        Host.Address(s)
+                    } else {
+                        Host.Name(Domain.parse(s))
+                    }
+                return HostWithOptPort(host, null)
             }
-
-            // Case 3: Contains single ':' -> host:port (IPv4 or domain)
-            if (s.contains(':')) {
-                val colon = s.lastIndexOf(':')
-                val hostPart = s.substring(0, colon)
-                val portPart = s.substring(colon + 1)
-                val port =
-                    portPart.toUShortOrNull()
-                        ?: throw IllegalArgumentException("invalid port in address: $s")
-                val host = Host.parse(hostPart)
-                return HostWithOptPort(host, port)
-            }
-
-            // Case 4: No colon -> Host without port
-            val host = Host.parse(s)
-            return HostWithOptPort(host, null)
         }
     }
 }

@@ -16,10 +16,18 @@ import kotlinx.serialization.encoding.Encoder
  * Example: `example.com:80`
  */
 @Serializable(with = DomainAddressSerializer::class)
-data class DomainAddress(
-    val domain: Domain,
-    val port: UShort,
+public data class DomainAddress(
+    public val domain: Domain,
+    public val port: UShort,
 ) : Comparable<DomainAddress> {
+    public fun domain(domain: Domain): DomainAddress = copy(domain = domain)
+
+    public fun withDomain(domain: Domain): DomainAddress = copy(domain = domain)
+
+    public fun port(port: UShort): DomainAddress = copy(port = port)
+
+    public fun withPort(port: UShort): DomainAddress = copy(port = port)
+
     override fun toString(): String = "$domain:$port"
 
     override fun compareTo(other: DomainAddress): Int {
@@ -28,28 +36,40 @@ data class DomainAddress(
         return port.compareTo(other.port)
     }
 
-    companion object {
-        fun exampleHttp(): DomainAddress = DomainAddress(Domain.example(), NetProtocol.HTTP_DEFAULT_PORT)
+    public companion object {
+        public fun new(domain: Domain, port: UShort): DomainAddress = DomainAddress(domain, port)
 
-        fun exampleHttps(): DomainAddress = DomainAddress(Domain.example(), NetProtocol.HTTPS_DEFAULT_PORT)
+        public fun new(domain: Domain, port: Int): DomainAddress = DomainAddress(domain, port.toUShort())
 
-        fun exampleWithPort(port: UShort): DomainAddress = DomainAddress(Domain.example(), port)
+        public fun exampleHttp(): DomainAddress = DomainAddress(Domain.example(), NetProtocol.HTTP_DEFAULT_PORT)
 
-        fun localhostHttp(): DomainAddress = DomainAddress(Domain.tldLocalhost(), NetProtocol.HTTP_DEFAULT_PORT)
+        public fun exampleHttps(): DomainAddress = DomainAddress(Domain.example(), NetProtocol.HTTPS_DEFAULT_PORT)
 
-        fun localhostHttps(): DomainAddress = DomainAddress(Domain.tldLocalhost(), NetProtocol.HTTPS_DEFAULT_PORT)
+        public fun exampleWithPort(port: UShort): DomainAddress = DomainAddress(Domain.example(), port)
 
-        fun localhostWithPort(port: UShort): DomainAddress = DomainAddress(Domain.tldLocalhost(), port)
+        public fun localhostHttp(): DomainAddress = DomainAddress(Domain.tldLocalhost(), NetProtocol.HTTP_DEFAULT_PORT)
 
-        fun parse(s: String): DomainAddress {
+        public fun localhostHttps(): DomainAddress = DomainAddress(Domain.tldLocalhost(), NetProtocol.HTTPS_DEFAULT_PORT)
+
+        public fun localhostWithPort(port: UShort): DomainAddress = DomainAddress(Domain.tldLocalhost(), port)
+
+        public fun from(pair: Pair<Domain, UShort>): DomainAddress = DomainAddress(pair.first, pair.second)
+
+        public fun parse(s: String): DomainAddress = fromStr(s)
+
+        public fun fromStr(s: String): DomainAddress {
             val (domainStr, port) = ParseUtils.splitPortFromStr(s)
-            val domain = Domain.parse(domainStr)
+            val domain = Domain.fromStr(domainStr)
             return DomainAddress(domain, port)
         }
+
+        public fun tryFrom(s: String): DomainAddress = fromStr(s)
+
+        public fun tryFrom(bytes: ByteArray): DomainAddress = fromStr(bytes.decodeToString())
     }
 }
 
-object DomainAddressSerializer : KSerializer<DomainAddress> {
+public object DomainAddressSerializer : KSerializer<DomainAddress> {
     override val descriptor: SerialDescriptor =
         PrimitiveSerialDescriptor("io.github.kotlinmania.ramanet.address.DomainAddress", PrimitiveKind.STRING)
 

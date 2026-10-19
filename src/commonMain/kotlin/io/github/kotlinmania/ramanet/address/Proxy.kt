@@ -2,7 +2,7 @@
 package io.github.kotlinmania.ramanet.address
 
 import io.github.kotlinmania.ramanet.NetProtocol
-import io.github.kotlinmania.ramanet.user.ProxyCredential
+import io.github.kotlinmania.ramanet.user.credentials.ProxyCredential
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.descriptors.PrimitiveKind
@@ -15,10 +15,10 @@ import kotlinx.serialization.encoding.Encoder
  * Address of a proxy that can be connected to.
  */
 @Serializable(with = ProxyAddressSerializer::class)
-data class ProxyAddress(
-    val address: HostWithPort,
-    val protocol: NetProtocol? = null,
-    val credential: ProxyCredential? = null,
+public data class ProxyAddress(
+    public val address: HostWithPort,
+    public val protocol: NetProtocol? = null,
+    public val credential: ProxyCredential? = null,
 ) {
     override fun toString(): String {
         val sb = StringBuilder()
@@ -48,8 +48,10 @@ data class ProxyAddress(
         return sb.toString()
     }
 
-    companion object {
-        fun parse(s: String): ProxyAddress {
+    public companion object {
+        public fun parse(s: String): ProxyAddress = fromStr(s)
+
+        public fun fromStr(s: String): ProxyAddress {
             val bytes = s.encodeToByteArray()
             val (protocol, consumed) = NetProtocol.tryToExtractProtocolFromUriScheme(bytes)
             val rest = if (consumed > 0) s.substring(consumed) else s
@@ -69,10 +71,14 @@ data class ProxyAddress(
                 credential = credential,
             )
         }
+
+        public fun tryFrom(s: String): ProxyAddress = fromStr(s)
+
+        public fun tryFrom(bytes: ByteArray): ProxyAddress = fromStr(bytes.decodeToString())
     }
 }
 
-object ProxyAddressSerializer : KSerializer<ProxyAddress> {
+public object ProxyAddressSerializer : KSerializer<ProxyAddress> {
     override val descriptor: SerialDescriptor =
         PrimitiveSerialDescriptor("io.github.kotlinmania.ramanet.address.ProxyAddress", PrimitiveKind.STRING)
 

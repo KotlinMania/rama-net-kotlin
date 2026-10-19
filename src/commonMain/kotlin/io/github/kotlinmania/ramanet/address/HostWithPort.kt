@@ -36,9 +36,15 @@ data class HostWithPort(
         return port.compareTo(other.port)
     }
 
+    fun host(host: Host): HostWithPort = withHost(host)
+
+    fun port(port: UShort): HostWithPort = withPort(port)
+
     fun withHost(host: Host): HostWithPort = copy(host = host)
 
     fun withPort(port: UShort): HostWithPort = copy(port = port)
+
+    fun fmt(): String = toString()
 
     companion object {
         fun new(host: Host, port: UShort): HostWithPort = HostWithPort(host, port)
@@ -74,6 +80,24 @@ data class HostWithPort(
         fun exampleHttp(): HostWithPort = exampleDomainHttp()
 
         fun exampleHttps(): HostWithPort = exampleDomainHttps()
+
+        fun from(domain: Domain, port: UShort): HostWithPort = HostWithPort(Host.Name(domain), port)
+
+        fun from(ip: String, port: UShort): HostWithPort = HostWithPort(Host.Address(ip), port)
+
+        fun from(host: Host, port: UShort): HostWithPort = HostWithPort(host, port)
+
+        fun from(socketAddress: SocketAddress): HostWithPort =
+            HostWithPort(Host.Address(socketAddress.ip), socketAddress.port)
+
+        fun from(domainAddress: DomainAddress): HostWithPort =
+            HostWithPort(Host.Name(domainAddress.domain), domainAddress.port)
+
+        fun fromStr(s: String): HostWithPort = parse(s)
+
+        fun tryFrom(s: String): HostWithPort = parse(s)
+
+        fun tryFrom(bytes: ByteArray): HostWithPort = parse(bytes.decodeToString())
 
         fun parse(s: String): HostWithPort {
             val (rawHost, port) = ParseUtils.splitPortFromStr(s)

@@ -1,4 +1,3 @@
-// port-lint: source client/mod.rs
 package io.github.kotlinmania.ramanet.client
 
 import io.github.kotlinmania.ramanet.address.HostWithPort

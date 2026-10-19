@@ -51,7 +51,23 @@ data class SocketAddress(
         return port.compareTo(other.port)
     }
 
+    fun ip(ipAddr: String): SocketAddress = withIp(ipAddr)
+
+    fun ipv4(ipAddr: String): SocketAddress = withIp(ipAddr)
+
+    fun ipv6(ipAddr: String): SocketAddress = withIp(ipAddr)
+
+    fun port(port: UShort): SocketAddress = withPort(port)
+
+    fun withIp(ipAddr: String): SocketAddress = copy(ip = ipAddr)
+
+    fun withPort(port: UShort): SocketAddress = copy(port = port)
+
+    fun fmt(): String = toString()
+
     companion object {
+        fun new(ipAddr: String, port: UShort): SocketAddress = SocketAddress(ipAddr, port)
+
         fun fromStd(addr: SocketAddr): SocketAddress =
             when (addr) {
                 is SocketAddr.V4 -> SocketAddress(addr.address, addr.port.toUShort())
@@ -68,18 +84,28 @@ data class SocketAddress(
 
         fun broadcastIpv4(port: UShort = 8080u): SocketAddress = SocketAddress(IpConstants.IPV4_BROADCAST, port)
 
+        fun from(addr: SocketAddr): SocketAddress = fromStd(addr)
+
+        fun from(ipAddr: String, port: UShort): SocketAddress = new(ipAddr, port)
+
+        fun fmt(addr: SocketAddress): String = addr.toString()
+
+        fun fromStr(s: String): SocketAddress = parse(s)
+
+        fun tryFrom(s: String): SocketAddress = parse(s)
+
+        fun tryFrom(bytes: ByteArray): SocketAddress = parse(bytes.decodeToString())
+
         fun parse(s: String): SocketAddress {
             val (rawHost, port) = ParseUtils.splitPortFromStr(s)
-            val isBracketed = rawHost.startsWith('[') && rawHost.endsWith(']')
-            val cleanHost = if (isBracketed) rawHost.substring(1, rawHost.length - 1) else rawHost
+            val ip =
+                ParseUtils.tryToParseStrToIp(rawHost)
+                    ?: throw IllegalArgumentException("invalid IP address in socket address: $s")
 
-            if (ParseUtils.isValidIpv6(cleanHost) && !isBracketed) {
+            if (ParseUtils.isValidIpv6(ip) && !s.startsWith('[')) {
                 throw IllegalArgumentException("missing brackets for IPv6 address with port: $s")
             }
 
-            val ip =
-                ParseUtils.tryToParseStrToIp(cleanHost)
-                    ?: throw IllegalArgumentException("invalid IP address in socket address: $s")
             return SocketAddress(ip, port)
         }
     }
