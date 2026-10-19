@@ -185,6 +185,7 @@ public class DomainTrie<T> {
 
     public fun iter(): List<Pair<Domain, T>> {
         val result = mutableListOf<Pair<Domain, T>>()
+
         fun collect(node: Node<T>, path: List<String>) {
             val v = node.value
             if (v != null) {

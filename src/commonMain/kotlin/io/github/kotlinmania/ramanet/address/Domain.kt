@@ -125,7 +125,9 @@ public fun isValidName(name: ByteArray): Boolean {
 @Serializable(with = DomainSerializer::class)
 public class Domain private constructor(
     private val value: String,
-) : Comparable<Domain>, AsDomainRef, IntoDomain {
+) : Comparable<Domain>,
+    AsDomainRef,
+    IntoDomain {
     init {
         require(isValidName(value.encodeToByteArray())) { "invalid domain" }
     }
@@ -308,13 +310,29 @@ public class Domain private constructor(
     }
 
     public companion object {
-        private val KNOWN_TWO_PART_SUFFIXES = setOf(
-            "co.uk", "org.uk", "me.uk", "ltd.uk", "plc.uk", "net.uk",
-            "com.au", "net.au", "org.au", "edu.au", "gov.au",
-            "co.nz", "net.nz", "org.nz",
-            "co.jp", "ne.jp", "or.jp",
-            "com.br", "net.br", "org.br",
-        )
+        private val KNOWN_TWO_PART_SUFFIXES =
+            setOf(
+                "co.uk",
+                "org.uk",
+                "me.uk",
+                "ltd.uk",
+                "plc.uk",
+                "net.uk",
+                "com.au",
+                "net.au",
+                "org.au",
+                "edu.au",
+                "gov.au",
+                "co.nz",
+                "net.nz",
+                "org.nz",
+                "co.jp",
+                "ne.jp",
+                "or.jp",
+                "com.br",
+                "net.br",
+                "org.br",
+            )
 
         public fun isValidName(s: String): Boolean = isValidName(s.encodeToByteArray())
 

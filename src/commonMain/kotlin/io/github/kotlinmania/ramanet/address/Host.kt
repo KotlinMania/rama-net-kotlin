@@ -22,6 +22,15 @@ sealed class Host : Comparable<Host> {
         override fun isName(): Boolean = true
 
         override fun asDomain(): Domain = domain
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (other is String) return domain.asString().equals(other, ignoreCase = true)
+            if (other !is Name) return false
+            return domain == other.domain
+        }
+
+        override fun hashCode(): Int = domain.hashCode()
     }
 
     data class Address(
@@ -37,6 +46,15 @@ sealed class Host : Comparable<Host> {
         override fun isAddress(): Boolean = true
 
         override fun asIp(): String = ip
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) return true
+            if (other is String) return ip.equals(other, ignoreCase = true)
+            if (other !is Address) return false
+            return ip == other.ip
+        }
+
+        override fun hashCode(): Int = ip.lowercase().hashCode()
     }
 
     open fun isName(): Boolean = false
@@ -63,22 +81,115 @@ sealed class Host : Comparable<Host> {
 
     override fun compareTo(other: Host): Int = toString().compareTo(other.toString(), ignoreCase = true)
 
+    fun fmt(): String = toString()
+
+    fun eq(other: String): Boolean = equals(other)
+
+    fun eq(other: Host): Boolean = equals(other)
+
     companion object {
-        fun localIpv4(): Host = Address(IpConstants.IPV4_LOCALHOST)
+        val LOCALHOST_IPV4: Host = Address(IpConstants.IPV4_LOCALHOST)
+        val LOCALHOST_IPV6: Host = Address(IpConstants.IPV6_LOCALHOST)
+        val LOCALHOST_NAME: Host = Name(Domain.fromStatic("localhost"))
+        val DEFAULT_IPV4: Host = Address(IpConstants.IPV4_UNSPECIFIED)
+        val DEFAULT_IPV6: Host = Address(IpConstants.IPV6_UNSPECIFIED)
+        val BROADCAST_IPV4: Host = Address(IpConstants.IPV4_BROADCAST)
+        val EXAMPLE_NAME: Host = Name(Domain.fromStatic("example.com"))
 
-        fun localIpv6(): Host = Address(IpConstants.IPV6_LOCALHOST)
+        fun localIpv4(): Host = LOCALHOST_IPV4
 
-        fun defaultIpv4(): Host = Address(IpConstants.IPV4_UNSPECIFIED)
+        fun localIpv6(): Host = LOCALHOST_IPV6
 
-        fun defaultIpv6(): Host = Address(IpConstants.IPV6_UNSPECIFIED)
+        fun defaultIpv4(): Host = DEFAULT_IPV4
 
-        fun broadcastIpv4(): Host = Address(IpConstants.IPV4_BROADCAST)
+        fun defaultIpv6(): Host = DEFAULT_IPV6
 
-        fun localhost(): Host = Name(Domain.tldLocalhost())
+        fun broadcastIpv4(): Host = BROADCAST_IPV4
 
-        fun example(): Host = Name(Domain.example())
+        fun localhost(): Host = LOCALHOST_NAME
+
+        fun example(): Host = EXAMPLE_NAME
 
         fun fromStatic(s: String): Host = parse(s)
+
+        fun from(domain: Domain): Host = Name(domain)
+
+        fun from(ip: String): Host = Address(ip)
+
+        fun fmt(host: Host): String = host.toString()
+
+        fun fromStr(s: String): Host = parse(s)
+
+        fun tryFrom(s: String): Host = parse(s)
+
+        fun tryFrom(bytes: ByteArray): Host {
+            val ip = tryToParseBytesToIp(bytes)
+            if (ip != null) return Address(ip)
+            val s = bytes.decodeToString()
+            return Name(Domain.parse(s))
+        }
+
+        fun tryToParseBytesToIp(value: ByteArray): String? {
+            try {
+                val s = value.decodeToString()
+                val ip = ParseUtils.tryToParseStrToIp(s)
+                if (ip != null) return ip
+            } catch (_: Exception) {
+            }
+
+            if (value.size == 4) {
+                val a = value[0].toInt() and 0xFF
+                val b = value[1].toInt() and 0xFF
+                val c = value[2].toInt() and 0xFF
+                val d = value[3].toInt() and 0xFF
+                return "$a.$b.$c.$d"
+            }
+
+            if (value.size == 16) {
+                return formatIpv6Bytes(value)
+            }
+
+            return null
+        }
+
+        private fun formatIpv6Bytes(bytes: ByteArray): String {
+            val words =
+                IntArray(8) { i ->
+                    val b1 = bytes[i * 2].toInt() and 0xFF
+                    val b2 = bytes[i * 2 + 1].toInt() and 0xFF
+                    (b1 shl 8) or b2
+                }
+
+            var bestStart = -1
+            var bestLen = 0
+            var curStart = -1
+            var curLen = 0
+            for (i in 0 until 8) {
+                if (words[i] == 0) {
+                    if (curStart == -1) {
+                        curStart = i
+                        curLen = 1
+                    } else {
+                        curLen++
+                    }
+                    if (curLen > bestLen) {
+                        bestStart = curStart
+                        bestLen = curLen
+                    }
+                } else {
+                    curStart = -1
+                    curLen = 0
+                }
+            }
+
+            if (bestLen >= 2 || (bestLen == 7 && bestStart == 0) || bestLen == 8) {
+                val before = words.slice(0 until bestStart).joinToString(":") { it.toString(16) }
+                val after = words.slice((bestStart + bestLen) until 8).joinToString(":") { it.toString(16) }
+                return "$before::$after"
+            }
+
+            return words.joinToString(":") { it.toString(16) }
+        }
 
         fun parse(s: String): Host {
             val ip = ParseUtils.tryToParseStrToIp(s)

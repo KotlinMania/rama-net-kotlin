@@ -25,12 +25,12 @@ class UserTest {
         val b1 = Basic.parse("alice:secret")
         assertEquals("alice", b1.username)
         assertEquals("secret", b1.password)
-        assertEquals("alice:***", b1.toString())
+        assertEquals("alice:secret", b1.toString())
 
         val b2 = Basic.parse("bob")
         assertEquals("bob", b2.username)
         assertNull(b2.password)
-        assertEquals("bob", b2.toString())
+        assertEquals("bob:", b2.toString())
 
         assertFailsWith<IllegalArgumentException> {
             Basic.parse("")

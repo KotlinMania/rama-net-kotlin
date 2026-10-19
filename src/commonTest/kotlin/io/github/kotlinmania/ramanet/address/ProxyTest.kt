@@ -27,10 +27,11 @@ class ProxyTest {
         assertEquals(
             ProxyAddress(
                 protocol = null,
-                address = HostWithPort.new(
-                    Host.Name(Domain.fromStatic("proxy.example.com")),
-                    80.toUShort(),
-                ),
+                address =
+                    HostWithPort.new(
+                        Host.Name(Domain.fromStatic("proxy.example.com")),
+                        80.toUShort(),
+                    ),
                 credential = null,
             ),
             addr,
@@ -108,10 +109,11 @@ class ProxyTest {
         assertEquals(
             ProxyAddress(
                 protocol = NetProtocol.HTTPS,
-                address = HostWithPort.new(
-                    Host.Name(Domain.fromStatic("my.proxy.io.")),
-                    9999.toUShort(),
-                ),
+                address =
+                    HostWithPort.new(
+                        Host.Name(Domain.fromStatic("my.proxy.io.")),
+                        9999.toUShort(),
+                    ),
                 credential = ProxyCredential.from(Basic.new("foo-cc-be", "baz")),
             ),
             addr,
@@ -124,10 +126,11 @@ class ProxyTest {
         assertEquals(
             ProxyAddress(
                 protocol = NetProtocol.HTTPS,
-                address = HostWithPort.new(
-                    Host.Name(Domain.fromStatic("my.proxy.io.")),
-                    9999.toUShort(),
-                ),
+                address =
+                    HostWithPort.new(
+                        Host.Name(Domain.fromStatic("my.proxy.io.")),
+                        9999.toUShort(),
+                    ),
                 credential = ProxyCredential.from(Basic.newInsecure("foo-cc-be")),
             ),
             addr,
@@ -162,33 +165,34 @@ class ProxyTest {
 
     @Test
     fun testValidProxyAddressSymmetric() {
-        val cases = listOf(
-            "http://proxy.io" to "http://proxy.io:80",
-            "proxy.io:8080" to "proxy.io:8080",
-            "127.0.0.1:8080" to "127.0.0.1:8080",
-            "[::1]:8080" to "[::1]:8080",
-            "socks5://proxy.io" to "socks5://proxy.io:1080",
-            "socks5://proxy.io:8080" to "socks5://proxy.io:8080",
-            "socks5://127.0.0.1" to "socks5://127.0.0.1:1080",
-            "socks5://127.0.0.1:8080" to "socks5://127.0.0.1:8080",
-            "socks5://::1" to "socks5://[::1]:1080",
-            "socks5://[::1]:8080" to "socks5://[::1]:8080",
-            "socks5://foo@proxy.io" to "socks5://foo@proxy.io:1080",
-            "socks5://foo@proxy.io:8080" to "socks5://foo@proxy.io:8080",
-            "socks5://foo@127.0.0.1" to "socks5://foo@127.0.0.1:1080",
-            "socks5://foo@127.0.0.1:8080" to "socks5://foo@127.0.0.1:8080",
-            "socks5://foo@::1" to "socks5://foo@[::1]:1080",
-            "socks5://foo@[::1]:8080" to "socks5://foo@[::1]:8080",
-            "socks5://foo:@127.0.0.1:8080" to "socks5://foo@127.0.0.1:8080",
-            "socks5://foo:@::1" to "socks5://foo@[::1]:1080",
-            "socks5://foo:@[::1]:8080" to "socks5://foo@[::1]:8080",
-            "socks5://foo:bar@proxy.io" to "socks5://foo:bar@proxy.io:1080",
-            "socks5://foo:bar@proxy.io:8080" to "socks5://foo:bar@proxy.io:8080",
-            "socks5://foo:bar@127.0.0.1" to "socks5://foo:bar@127.0.0.1:1080",
-            "socks5://foo:bar@127.0.0.1:8080" to "socks5://foo:bar@127.0.0.1:8080",
-            "socks5://foo:bar@::1" to "socks5://foo:bar@[::1]:1080",
-            "socks5://foo:bar@[::1]:8080" to "socks5://foo:bar@[::1]:8080",
-        )
+        val cases =
+            listOf(
+                "http://proxy.io" to "http://proxy.io:80",
+                "proxy.io:8080" to "proxy.io:8080",
+                "127.0.0.1:8080" to "127.0.0.1:8080",
+                "[::1]:8080" to "[::1]:8080",
+                "socks5://proxy.io" to "socks5://proxy.io:1080",
+                "socks5://proxy.io:8080" to "socks5://proxy.io:8080",
+                "socks5://127.0.0.1" to "socks5://127.0.0.1:1080",
+                "socks5://127.0.0.1:8080" to "socks5://127.0.0.1:8080",
+                "socks5://::1" to "socks5://[::1]:1080",
+                "socks5://[::1]:8080" to "socks5://[::1]:8080",
+                "socks5://foo@proxy.io" to "socks5://foo@proxy.io:1080",
+                "socks5://foo@proxy.io:8080" to "socks5://foo@proxy.io:8080",
+                "socks5://foo@127.0.0.1" to "socks5://foo@127.0.0.1:1080",
+                "socks5://foo@127.0.0.1:8080" to "socks5://foo@127.0.0.1:8080",
+                "socks5://foo@::1" to "socks5://foo@[::1]:1080",
+                "socks5://foo@[::1]:8080" to "socks5://foo@[::1]:8080",
+                "socks5://foo:@127.0.0.1:8080" to "socks5://foo@127.0.0.1:8080",
+                "socks5://foo:@::1" to "socks5://foo@[::1]:1080",
+                "socks5://foo:@[::1]:8080" to "socks5://foo@[::1]:8080",
+                "socks5://foo:bar@proxy.io" to "socks5://foo:bar@proxy.io:1080",
+                "socks5://foo:bar@proxy.io:8080" to "socks5://foo:bar@proxy.io:8080",
+                "socks5://foo:bar@127.0.0.1" to "socks5://foo:bar@127.0.0.1:1080",
+                "socks5://foo:bar@127.0.0.1:8080" to "socks5://foo:bar@127.0.0.1:8080",
+                "socks5://foo:bar@::1" to "socks5://foo:bar@[::1]:1080",
+                "socks5://foo:bar@[::1]:8080" to "socks5://foo:bar@[::1]:8080",
+            )
         for ((s, expected) in cases) {
             val addr = ProxyAddress.tryFrom(s)
             val out = addr.toString()

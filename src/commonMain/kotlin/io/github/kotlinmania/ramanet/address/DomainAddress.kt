@@ -20,13 +20,9 @@ public data class DomainAddress(
     public val domain: Domain,
     public val port: UShort,
 ) : Comparable<DomainAddress> {
-    public fun domain(): Domain = domain
-
     public fun domain(domain: Domain): DomainAddress = copy(domain = domain)
 
     public fun withDomain(domain: Domain): DomainAddress = copy(domain = domain)
-
-    public fun port(): UShort = port
 
     public fun port(port: UShort): DomainAddress = copy(port = port)
 

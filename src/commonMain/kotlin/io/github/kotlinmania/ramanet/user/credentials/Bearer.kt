@@ -18,8 +18,6 @@ public data class Bearer(
         }
     }
 
-    public fun token(): String = token
-
     public fun unmasked(): String = token
 
     override fun toString(): String = "***"

@@ -54,7 +54,6 @@ public sealed interface EitherConnConnected<out A, out B> {
     ) : EitherConnConnected<Nothing, T>
 }
 
-
 /**
  * `EitherConn3Connected` for 3 branches.
  */

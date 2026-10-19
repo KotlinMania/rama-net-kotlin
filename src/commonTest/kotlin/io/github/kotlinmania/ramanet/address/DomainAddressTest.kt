@@ -13,11 +13,12 @@ class DomainAddressTest {
 
     @Test
     fun testValidDomainAddress() {
-        val cases = listOf(
-            Triple("example.com:80", "example.com", 80.toUShort()),
-            Triple("subdomain.example.com:443", "subdomain.example.com", 443.toUShort()),
-            Triple("127.0.0.1:8080", "127.0.0.1", 8080.toUShort()),
-        )
+        val cases =
+            listOf(
+                Triple("example.com:80", "example.com", 80.toUShort()),
+                Triple("subdomain.example.com:443", "subdomain.example.com", 443.toUShort()),
+                Triple("127.0.0.1:8080", "127.0.0.1", 8080.toUShort()),
+            )
         for ((s, expectedDomain, expectedPort) in cases) {
             assertEq(s, DomainAddress.parse(s), expectedDomain, expectedPort)
             assertEq(s, DomainAddress.tryFrom(s), expectedDomain, expectedPort)
@@ -27,32 +28,33 @@ class DomainAddressTest {
 
     @Test
     fun testParseInvalid() {
-        val invalidCases = listOf(
-            "",
-            "-",
-            ".",
-            ":",
-            ":80",
-            "-.",
-            ".-",
-            "::1",
-            "127.0.0.1",
-            "::1:8080",
-            "[::1]",
-            "example",
-            "exa\$mple.com:8080",
-            "2001:db8:3333:4444:5555:6666:7777:8888:8080",
-            "2001:db8:3333:4444:5555:6666:7777:8888",
-            "[2001:db8:3333:4444:5555:6666:7777:8888]",
-            "[2001:db8:3333:4444:5555:6666:7777:8888]:8080",
-            "example.com",
-            "example.com:",
-            "example.com:-1",
-            "example.com:999999",
-            "example:com",
-            "[127.0.0.1]:80",
-            "2001:db8:3333:4444:5555:6666:7777:8888:80",
-        )
+        val invalidCases =
+            listOf(
+                "",
+                "-",
+                ".",
+                ":",
+                ":80",
+                "-.",
+                ".-",
+                "::1",
+                "127.0.0.1",
+                "::1:8080",
+                "[::1]",
+                "example",
+                "exa\$mple.com:8080",
+                "2001:db8:3333:4444:5555:6666:7777:8888:8080",
+                "2001:db8:3333:4444:5555:6666:7777:8888",
+                "[2001:db8:3333:4444:5555:6666:7777:8888]",
+                "[2001:db8:3333:4444:5555:6666:7777:8888]:8080",
+                "example.com",
+                "example.com:",
+                "example.com:-1",
+                "example.com:999999",
+                "example:com",
+                "[127.0.0.1]:80",
+                "2001:db8:3333:4444:5555:6666:7777:8888:80",
+            )
         for (s in invalidCases) {
             assertFailsWith<IllegalArgumentException>("parsing '$s'") {
                 DomainAddress.parse(s)
@@ -65,10 +67,11 @@ class DomainAddressTest {
 
     @Test
     fun testParseDisplay() {
-        val cases = listOf(
-            "example.com:80" to "example.com:80",
-            "subdomain.example.com:443" to "subdomain.example.com:443",
-        )
+        val cases =
+            listOf(
+                "example.com:80" to "example.com:80",
+                "subdomain.example.com:443" to "subdomain.example.com:443",
+            )
         for ((s, expected) in cases) {
             val domainAddress = DomainAddress.parse(s)
             assertEquals(expected, domainAddress.toString(), "parsing '$s'")

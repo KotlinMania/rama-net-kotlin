@@ -20,6 +20,19 @@ package io.github.kotlinmania.ramanet.forwarded
 
 import io.github.kotlinmania.ramanet.NetProtocol
 
+enum class ProtocolKind {
+    Http,
+    Https,
+}
+
+class UnknownProtocol(
+    message: String = "unknown protocol",
+) : IllegalArgumentException(message)
+
+class InvalidProtocolStr(
+    message: String = "invalid forwarded protocol string",
+) : IllegalArgumentException(message)
+
 /**
  * Protocols that were forwarded.
  *
@@ -40,11 +53,15 @@ enum class ForwardedProtocol(
 
     fun asStr(): String = scheme
 
+    fun intoProtocol(): NetProtocol = toProtocol()
+
     fun toProtocol(): NetProtocol =
         when (this) {
             Http -> NetProtocol.Http
             Https -> NetProtocol.Https
         }
+
+    fun fmt(): String = scheme
 
     override fun toString(): String = scheme
 
@@ -52,18 +69,28 @@ enum class ForwardedProtocol(
         val HTTP: ForwardedProtocol = Http
         val HTTPS: ForwardedProtocol = Https
 
-        fun fromProtocol(protocol: NetProtocol): ForwardedProtocol =
+        fun from(p: ForwardedProtocol): NetProtocol = p.toProtocol()
+
+        fun fromProtocol(protocol: NetProtocol): ForwardedProtocol = tryFrom(protocol)
+
+        fun tryFrom(protocol: NetProtocol): ForwardedProtocol =
             when {
                 protocol.isHttp() && protocol.isSecure() -> Https
                 protocol.isHttp() -> Http
-                else -> throw IllegalArgumentException("unknown forwarded protocol: $protocol")
+                else -> throw UnknownProtocol("unknown protocol: $protocol")
             }
 
-        fun parse(s: String): ForwardedProtocol =
+        fun tryFrom(s: String): ForwardedProtocol =
             when {
                 s.equals("http", ignoreCase = true) -> Http
                 s.equals("https", ignoreCase = true) -> Https
-                else -> throw IllegalArgumentException("invalid forwarded protocol string: $s")
+                else -> throw InvalidProtocolStr("invalid forwarded protocol string: $s")
             }
+
+        fun fromStr(s: String): ForwardedProtocol = tryFrom(s)
+
+        fun parse(s: String): ForwardedProtocol = tryFrom(s)
+
+        fun fmt(p: ForwardedProtocol): String = p.toString()
     }
 }

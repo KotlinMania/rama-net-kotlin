@@ -18,10 +18,6 @@ public data class Basic(
         }
     }
 
-    public fun username(): String = username
-
-    public fun password(): String? = password
-
     public fun hasPassword(): Boolean = password != null
 
     public fun cloneWithNewUsername(newUsername: String): Basic =

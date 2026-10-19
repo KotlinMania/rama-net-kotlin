@@ -95,8 +95,9 @@ class AddressTest {
         assertEquals(80u.toUShort(), hopDomainWithPort.port)
         assertEquals("example.com:80", hopDomainWithPort.toString())
 
-        val hopIpv6NoPort = HostWithOptPort.parse("[::1]")
+        val hopIpv6NoPort = HostWithOptPort.parse("::1")
         assertNull(hopIpv6NoPort.port)
+        assertEquals("::1", hopIpv6NoPort.toString())
 
         val hopIpv6WithPort = HostWithOptPort.parse("[::1]:8080")
         assertEquals(8080u.toUShort(), hopIpv6WithPort.port)

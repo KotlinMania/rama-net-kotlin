@@ -5,10 +5,10 @@ Based on AST analysis, here are the concrete next steps.
 ## Summary
 
 - **Files Present:** 38/104 (36.5%)
-- **Function parity:** 213/1042 matched (target 415) — 20.4%
-- **Class/type parity:** 46/285 matched (target 103) — 16.1%
-- **Combined symbol parity:** 259/1327 matched (target 518) — 19.5%
-- **Average inline-code cosine:** 0.27 (function body across 38 matched files)
+- **Function parity:** 329/1042 matched (target 618) — 31.6%
+- **Class/type parity:** 50/285 matched (target 120) — 17.5%
+- **Combined symbol parity:** 379/1327 matched (target 738) — 28.6%
+- **Average inline-code cosine:** 0.35 (function body across 38 matched files)
 - **Average documentation cosine:** 0.56 (doc text across 38 matched files)
 - **Cheat-zeroed Files:** 0
 - **Critical Issues:** 33 files with <0.60 function similarity
@@ -44,11 +44,11 @@ Every matched file is listed below with function and type symbol parity.
 ### 2. address.host_with_port
 
 - **Target:** `address.HostWithPort`
-- **Similarity:** 0.30
+- **Similarity:** 0.47
 - **Dependents:** 3
-- **Priority Score:** 3072507.0
-- **Functions:** 17/22 matched (target 29)
-- **Missing functions:** `from`, `fmt`, `from_str`, `try_from`, `assert_eq`
+- **Priority Score:** 3032505.2
+- **Functions:** 21/22 matched (target 40)
+- **Missing functions:** `assert_eq`
 - **Types:** 1/3 matched
 - **Missing types:** `Err`, `Error`
 - **Tests:** 3/4 matched
@@ -64,31 +64,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/1 matched
 - **Missing types:** _none_
 
-### 4. address.host_with_opt_port
-
-- **Target:** `address.HostWithOptPort`
-- **Similarity:** 0.06
-- **Dependents:** 2
-- **Priority Score:** 2273409.5
-- **Functions:** 6/31 matched (target 13)
-- **Missing functions:** `new`, `new_with_port`, `default_ipv4`, `default_ipv4_with_port`, `default_ipv6`, `default_ipv6_with_port`, `broadcast_ipv4`, `broadcast_ipv4_with_port`, `example_domain`, `example_domain_http`, `example_domain_https`, `example_domain_with_port`, `localhost_domain`, `localhost_domain_http`, `localhost_domain_https`, `localhost_domain_with_port`, `from`, `fmt`, `from_str`, `try_from`, `try_from_maybe_borrowed_str`, `assert_eq`, `test_parse_valid`, `test_parse_invalid`, `test_parse_display`
-- **Types:** 1/3 matched (target 2)
-- **Missing types:** `Err`, `Error`
-- **Tests:** 0/4 matched
-
-### 5. address.host
-
-- **Target:** `address.Host`
-- **Similarity:** 0.07
-- **Dependents:** 2
-- **Priority Score:** 2172909.2
-- **Functions:** 11/25 matched (target 29)
-- **Missing functions:** `eq`, `from`, `fmt`, `from_str`, `try_from`, `try_to_parse_bytes_to_ip`, `assert_is`, `test_parse_specials`, `test_parse_bytes_valid`, `test_parse_valid`, `test_parse_str_invalid`, `compare_host_with_ipv4_bidirectional`, `compare_host_with_ipv6_bidirectional`, `compare_host_with_ip_bidirectional`
-- **Types:** 1/4 matched
-- **Missing types:** `Err`, `Error`, `Is`
-- **Tests:** 0/8 matched
-
-### 6. socket.interface
+### 4. socket.interface
 
 - **Target:** `socket.Interface`
 - **Similarity:** 0.20
@@ -100,28 +76,52 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Err`, `Error`, `Variants`
 - **Tests:** 0/7 matched
 
-### 7. address.socket_address
-
-- **Target:** `address.SocketAddress`
-- **Similarity:** 0.14
-- **Dependents:** 2
-- **Priority Score:** 2122208.5
-- **Functions:** 9/19 matched (target 15)
-- **Missing functions:** `eq`, `new`, `from`, `fmt`, `from_str`, `try_from`, `assert_eq`, `test_parse_valid`, `test_parse_invalid`, `test_parse_display`
-- **Types:** 1/3 matched (target 2)
-- **Missing types:** `Err`, `Error`
-- **Tests:** 0/4 matched
-
-### 8. credentials.basic
+### 5. credentials.basic
 
 - **Target:** `credentials.Basic`
-- **Similarity:** 0.33
+- **Similarity:** 0.21
 - **Dependents:** 2
-- **Priority Score:** 2061406.8
-- **Functions:** 7/11 matched (target 10)
-- **Missing functions:** `fmt`, `into_authorizer`, `hash`, `try_from`
+- **Priority Score:** 2081407.9
+- **Functions:** 5/11 matched (target 8)
+- **Missing functions:** `fmt`, `username`, `password`, `into_authorizer`, `hash`, `try_from`
 - **Types:** 1/3 matched (target 1)
 - **Missing types:** `Error`, `Err`
+
+### 6. address.socket_address
+
+- **Target:** `address.SocketAddress`
+- **Similarity:** 0.31
+- **Dependents:** 2
+- **Priority Score:** 2042206.9
+- **Functions:** 17/19 matched (target 33)
+- **Missing functions:** `eq`, `assert_eq`
+- **Types:** 1/3 matched
+- **Missing types:** `Err`, `Error`
+- **Tests:** 3/4 matched
+
+### 7. address.host_with_opt_port
+
+- **Target:** `address.HostWithOptPort`
+- **Similarity:** 0.54
+- **Dependents:** 2
+- **Priority Score:** 2033404.6
+- **Functions:** 30/31 matched (target 51)
+- **Missing functions:** `assert_eq`
+- **Types:** 1/3 matched
+- **Missing types:** `Err`, `Error`
+- **Tests:** 3/4 matched
+
+### 8. address.host
+
+- **Target:** `address.Host`
+- **Similarity:** 0.31
+- **Dependents:** 2
+- **Priority Score:** 2032907.0
+- **Functions:** 24/25 matched (target 52)
+- **Missing functions:** `assert_is`
+- **Types:** 2/4 matched (target 8)
+- **Missing types:** `Err`, `Error`
+- **Tests:** 7/8 matched
 
 ### 9. http.request_context
 
@@ -138,62 +138,38 @@ Every matched file is listed below with function and type symbol parity.
 ### 10. address.domain_address
 
 - **Target:** `address.DomainAddress`
-- **Similarity:** 0.25
+- **Similarity:** 0.51
 - **Dependents:** 1
-- **Priority Score:** 1112007.5
-- **Functions:** 8/17 matched (target 11)
-- **Missing functions:** `new`, `from`, `fmt`, `from_str`, `try_from`, `assert_eq`, `test_valid_domain_address`, `test_parse_invalid`, `test_parse_display`
-- **Types:** 1/3 matched (target 2)
+- **Priority Score:** 1042004.9
+- **Functions:** 15/17 matched (target 25)
+- **Missing functions:** `fmt`, `assert_eq`
+- **Types:** 1/3 matched
 - **Missing types:** `Err`, `Error`
-- **Tests:** 0/4 matched
+- **Tests:** 3/4 matched
 
 ### 11. stream.socket
 
 - **Target:** `stream.Socket`
-- **Similarity:** 0.04
+- **Similarity:** 0.10
 - **Dependents:** 1
-- **Priority Score:** 1071109.6
-- **Functions:** 1/7 matched (target 3)
-- **Missing functions:** `local_addr`, `peer_addr`, `as_ref`, `as_mut`, `deref`, `deref_mut`
-- **Types:** 3/4 matched (target 3)
-- **Missing types:** `Target`
+- **Priority Score:** 1021109.1
+- **Functions:** 5/7 matched
+- **Missing functions:** `local_addr`, `peer_addr`
+- **Types:** 4/4 matched
+- **Missing types:** _none_
 
 ### 12. forwarded.version
 
 - **Target:** `forwarded.ForwardedVersion`
-- **Similarity:** 0.00
+- **Similarity:** 0.18
 - **Dependents:** 1
-- **Priority Score:** 1050610.0
-- **Functions:** 0/3 matched
-- **Missing functions:** `as_http`, `try_from`, `fmt`
-- **Types:** 1/3 matched (target 1)
-- **Missing types:** `VersionKind`, `Error`
+- **Priority Score:** 1010608.2
+- **Functions:** 3/3 matched (target 10)
+- **Missing functions:** _none_
+- **Types:** 2/3 matched
+- **Missing types:** `Error`
 
-### 13. address.authority
-
-- **Target:** `address.Authority`
-- **Similarity:** 0.07
-- **Dependents:** 0
-- **Priority Score:** 273409.3
-- **Functions:** 6/31 matched (target 13)
-- **Missing functions:** `new`, `new_with_user_info`, `default_ipv4`, `default_ipv4_with_port`, `default_ipv6`, `default_ipv6_with_port`, `broadcast_ipv4`, `broadcast_ipv4_with_port`, `example_domain`, `example_domain_http`, `example_domain_https`, `example_domain_with_port`, `localhost_domain`, `localhost_domain_http`, `localhost_domain_https`, `localhost_domain_with_port`, `from`, `fmt`, `from_str`, `try_from`, `try_from_maybe_borrowed_str`, `assert_eq`, `test_parse_valid`, `test_parse_invalid`, `test_parse_display`
-- **Types:** 1/3 matched (target 2)
-- **Missing types:** `Err`, `Error`
-- **Tests:** 0/4 matched
-
-### 14. address.proxy
-
-- **Target:** `address.Proxy`
-- **Similarity:** 0.03
-- **Dependents:** 0
-- **Priority Score:** 172009.7
-- **Functions:** 2/17 matched (target 4)
-- **Missing functions:** `try_from`, `from_str`, `fmt`, `test_valid_proxy`, `test_valid_domain_proxy`, `test_valid_proxy_with_credential`, `test_valid_proxy_with_insecure_credential`, `test_valid_http_proxy`, `test_valid_http_proxy_with_credential`, `test_valid_http_proxy_with_insecure_credential`, `test_valid_https_proxy`, `test_valid_https_proxy_with_insecure_credentials`, `test_valid_socks5h_proxy`, `test_valid_socks5h_proxy_trailing_colon`, `test_valid_proxy_address_symmetric`
-- **Types:** 1/3 matched (target 2)
-- **Missing types:** `Error`, `Err`
-- **Tests:** 0/12 matched
-
-### 15. proto
+### 13. proto
 
 - **Target:** `ramanet.Proto`
 - **Similarity:** 0.08
@@ -205,7 +181,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Protocol`, `ProtocolKind`, `Error`, `Err`
 - **Tests:** 3/4 matched
 
-### 16. forwarded.node
+### 14. forwarded.node
 
 - **Target:** `forwarded.Node`
 - **Similarity:** 0.14
@@ -217,31 +193,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `Err`, `Error`
 - **Tests:** 0/3 matched
 
-### 17. address.domain_trie
-
-- **Target:** `address.DomainTrie`
-- **Similarity:** 0.24
-- **Dependents:** 0
-- **Priority Score:** 132507.6
-- **Functions:** 10/23 matched (target 14)
-- **Missing functions:** `default`, `fmt`, `eq`, `with_insert_domain_iter`, `insert_domain_iter`, `extend`, `iter`, `from_iter`, `test_reverse_domain`, `test_trie_most_specific_matching_parent`, `test_trie_matching_parent`, `test_trie_matching_exact`, `test_trie_iter_domain_correct_direction`
-- **Types:** 2/2 matched (target 3)
-- **Missing types:** _none_
-- **Tests:** 0/5 matched
-
-### 18. forwarded.proto
-
-- **Target:** `forwarded.ForwardedProtocol`
-- **Similarity:** 0.05
-- **Dependents:** 0
-- **Priority Score:** 111609.5
-- **Functions:** 4/12 matched (target 8)
-- **Missing functions:** `into_protocol`, `from`, `try_from`, `from_str`, `eq`, `fmt`, `test_protocol_from_str`, `test_protocol_secure`
-- **Types:** 1/4 matched (target 1)
-- **Missing types:** `ProtocolKind`, `Error`, `Err`
-- **Tests:** 0/2 matched
-
-### 19. matcher.private_ip
+### 15. matcher.private_ip
 
 - **Target:** `matcher.PrivateIp`
 - **Similarity:** 0.10
@@ -253,7 +205,18 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `FakeSocket`
 - **Tests:** 0/4 matched
 
-### 20. client.conn
+### 16. credentials.bearer
+
+- **Target:** `credentials.Bearer`
+- **Similarity:** 0.04
+- **Dependents:** 0
+- **Priority Score:** 71009.6
+- **Functions:** 2/7 matched (target 5)
+- **Missing functions:** `fmt`, `new_unchecked`, `token`, `into_authorizer`, `try_from`
+- **Types:** 1/3 matched (target 1)
+- **Missing types:** `Error`, `Err`
+
+### 17. client.conn
 
 - **Target:** `client.Conn`
 - **Similarity:** 0.21
@@ -264,18 +227,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 2/6 matched (target 2)
 - **Missing types:** `ConnectorService`, `Connection`, `Error`, `Output`
 
-### 21. credentials.bearer
-
-- **Target:** `credentials.Bearer`
-- **Similarity:** 0.07
-- **Dependents:** 0
-- **Priority Score:** 61009.3
-- **Functions:** 3/7 matched (target 6)
-- **Missing functions:** `fmt`, `new_unchecked`, `into_authorizer`, `try_from`
-- **Types:** 1/3 matched (target 1)
-- **Missing types:** `Error`, `Err`
-
-### 22. forwarded.obfuscated
+### 18. forwarded.obfuscated
 
 - **Target:** `forwarded.Obfuscated`
 - **Similarity:** 0.12
@@ -287,7 +239,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 0/6 matched
 
-### 23. socket.opts
+### 19. socket.opts
 
 - **Target:** `socket.Opts`
 - **Similarity:** 0.26
@@ -298,7 +250,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 3/6 matched (target 5)
 - **Missing types:** `Protocol`, `Type`, `Variants`
 
-### 24. asn
+### 20. asn
 
 - **Target:** `ramanet.Asn`
 - **Similarity:** 0.19
@@ -309,7 +261,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 1/3 matched (target 4)
 - **Missing types:** `AsnData`, `Error`
 
-### 25. matcher.loopback
+### 21. matcher.loopback
 
 - **Target:** `matcher.Loopback`
 - **Similarity:** 0.23
@@ -321,7 +273,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** _none_
 - **Tests:** 0/4 matched
 
-### 26. matcher.socket
+### 22. matcher.socket
 
 - **Target:** `matcher.Socket`
 - **Similarity:** 0.25
@@ -333,7 +285,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `FakeSocket`
 - **Tests:** 0/4 matched
 
-### 27. matcher.port
+### 23. matcher.port
 
 - **Target:** `matcher.Port`
 - **Similarity:** 0.29
@@ -345,7 +297,7 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing types:** `FakeSocket`
 - **Tests:** 0/4 matched
 
-### 28. socket.svc
+### 24. socket.svc
 
 - **Target:** `socket.Svc`
 - **Similarity:** 0.00
@@ -356,7 +308,43 @@ Every matched file is listed below with function and type symbol parity.
 - **Types:** 0/3 matched (target 0)
 - **Missing types:** `SocketService`, `Socket`, `Error`
 
-### 29. transport
+### 25. address.authority
+
+- **Target:** `address.Authority`
+- **Similarity:** 0.57
+- **Dependents:** 0
+- **Priority Score:** 33404.3
+- **Functions:** 30/31 matched (target 54)
+- **Missing functions:** `assert_eq`
+- **Types:** 1/3 matched
+- **Missing types:** `Err`, `Error`
+- **Tests:** 3/4 matched
+
+### 26. address.proxy
+
+- **Target:** `address.Proxy`
+- **Similarity:** 0.55
+- **Dependents:** 0
+- **Priority Score:** 32004.5
+- **Functions:** 16/17 matched (target 19)
+- **Missing functions:** `fmt`
+- **Types:** 1/3 matched
+- **Missing types:** `Error`, `Err`
+- **Tests:** 12/12 matched
+
+### 27. forwarded.proto
+
+- **Target:** `forwarded.ForwardedProtocol`
+- **Similarity:** 0.21
+- **Dependents:** 0
+- **Priority Score:** 31607.9
+- **Functions:** 11/12 matched (target 17)
+- **Missing functions:** `eq`
+- **Types:** 2/4 matched (target 5)
+- **Missing types:** `Error`, `Err`
+- **Tests:** 2/2 matched
+
+### 28. transport
 
 - **Target:** `ramanet.Transport`
 - **Similarity:** 0.25
@@ -366,6 +354,18 @@ Every matched file is listed below with function and type symbol parity.
 - **Missing functions:** `try_from`
 - **Types:** 2/4 matched (target 3)
 - **Missing types:** `TryRefIntoTransportContext`, `Error`
+
+### 29. address.domain_trie
+
+- **Target:** `address.DomainTrie`
+- **Similarity:** 0.53
+- **Dependents:** 0
+- **Priority Score:** 22504.7
+- **Functions:** 21/23 matched (target 40)
+- **Missing functions:** `fmt`, `eq`
+- **Types:** 2/2 matched (target 4)
+- **Missing types:** _none_
+- **Tests:** 5/5 matched
 
 ### 30. client.mock_connector
 

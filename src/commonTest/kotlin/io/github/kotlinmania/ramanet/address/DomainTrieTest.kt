@@ -24,10 +24,11 @@ class DomainTrieTest {
 
     @Test
     fun testTrieMostSpecificMatchingParent() {
-        val matcher = DomainTrie<String>()
-            .withInsertDomain("bar.example.com", "bar")
-            .withInsertDomain("example.com", "root")
-            .withInsertDomain("foo.bar.example.com", "foo.bar")
+        val matcher =
+            DomainTrie<String>()
+                .withInsertDomain("bar.example.com", "bar")
+                .withInsertDomain("example.com", "root")
+                .withInsertDomain("foo.bar.example.com", "foo.bar")
 
         assertEquals(
             DomainParentMatch(value = "root", isExact = true),
@@ -59,8 +60,9 @@ class DomainTrieTest {
 
     @Test
     fun testTrieMatchingParent() {
-        val matcher = DomainTrie<String>()
-            .withInsertDomain("example.com", "root")
+        val matcher =
+            DomainTrie<String>()
+                .withInsertDomain("example.com", "root")
 
         assertTrue(matcher.isMatchParent("example.com"))
         assertTrue(matcher.isMatchParent("sub.example.com"))
@@ -71,8 +73,9 @@ class DomainTrieTest {
 
     @Test
     fun testTrieMatchingExact() {
-        val matcher = DomainTrie<String>()
-            .withInsertDomain("example.com", "root")
+        val matcher =
+            DomainTrie<String>()
+                .withInsertDomain("example.com", "root")
 
         assertTrue(matcher.isMatchExact("example.com"))
         assertFalse(matcher.isMatchExact("sub.example.com"))
@@ -82,9 +85,10 @@ class DomainTrieTest {
 
     @Test
     fun testTrieIterDomainCorrectDirection() {
-        val trie = DomainTrie<Int>()
-            .withInsertDomain("a.b.c", 1)
-            .withInsertDomain("d.e.f", 2)
+        val trie =
+            DomainTrie<Int>()
+                .withInsertDomain("a.b.c", 1)
+                .withInsertDomain("d.e.f", 2)
 
         val pairs = trie.iter()
         assertEquals(2, pairs.size)

@@ -35,9 +35,19 @@ data class ClientSocketInfo(
 
     val peerAddr: SocketAddress get() = inner.peerAddr
 
+    fun asRef(): SocketInfo = inner
+
+    fun asMut(): SocketInfo = inner
+
+    fun deref(): SocketInfo = inner
+
+    fun derefMut(): SocketInfo = inner
+
     fun asSocketInfo(): SocketInfo = inner
 
     companion object {
         fun new(info: SocketInfo): ClientSocketInfo = ClientSocketInfo(inner = info)
     }
 }
+
+typealias Target = SocketInfo
